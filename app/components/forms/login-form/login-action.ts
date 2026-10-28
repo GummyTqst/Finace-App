@@ -22,6 +22,8 @@ export type LoginFormState = {
   };
 };
 
+const API_URL = process.env.API_URL ?? "http://localhost:3001/api/v1";
+
 export default async function loginAction(
   prevState: LoginFormState,
   formData: FormData,
@@ -37,7 +39,7 @@ export default async function loginAction(
     };
   }
 
-  const response = await fetch("http://api:3000/auth/tokens", {
+  const response = await fetch(`${API_URL}/auth/tokens`, {
     method: "POST",
     headers: {
       "content-type": "application/json",
