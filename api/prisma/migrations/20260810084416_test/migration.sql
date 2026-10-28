@@ -1,10 +1,6 @@
 -- AlterTable
 ALTER TABLE "User" ADD COLUMN     "activation_key" TEXT,
-ADD COLUMN     "active" BOOLEAN NOT NULL DEFAULT false,
-ADD COLUMN     "currentPeriodEnd" TIMESTAMP(3),
-ADD COLUMN     "stripeCustomerId" TEXT,
-ADD COLUMN     "stripeSubscriptionId" TEXT,
-ADD COLUMN     "subscriptionStatus" TEXT;
+ADD COLUMN     "active" BOOLEAN NOT NULL DEFAULT false;
 
 -- CreateTable
 CREATE TABLE "RefreshToken" (

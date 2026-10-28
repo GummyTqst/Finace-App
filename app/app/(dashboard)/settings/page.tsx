@@ -9,8 +9,6 @@ type SettingsData = {
     name: string;
     email: string;
     currency: string;
-    subscriptionStatus: string | null;
-    currentPeriodEnd: string | null;
     active: boolean;
   };
 };
@@ -42,8 +40,6 @@ export default async function SettingsPage() {
   } catch {
     redirect("/login");
   }
-
-  const subscription = data.user.subscriptionStatus ?? "Free";
 
   return (
     <div className="max-w-3xl space-y-400">
@@ -80,13 +76,6 @@ export default async function SettingsPage() {
                     <dt className="text-sm text-grey-500">Email</dt>
                     <dd className="mt-100 font-medium text-grey-900">
                       {data.user.email}
-                    </dd>
-                  </div>
-
-                  <div>
-                    <dt className="text-sm text-grey-500">Subscription</dt>
-                    <dd className="mt-100 font-medium capitalize text-grey-900">
-                      {subscription}
                     </dd>
                   </div>
 

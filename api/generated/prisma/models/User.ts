@@ -30,10 +30,6 @@ export type UserMinAggregateOutputType = {
   email: string | null
   password: string | null
   currency: string | null
-  stripeCustomerId: string | null
-  stripeSubscriptionId: string | null
-  subscriptionStatus: string | null
-  currentPeriodEnd: Date | null
   active: boolean | null
   activation_key: string | null
   createdAt: Date | null
@@ -46,10 +42,6 @@ export type UserMaxAggregateOutputType = {
   email: string | null
   password: string | null
   currency: string | null
-  stripeCustomerId: string | null
-  stripeSubscriptionId: string | null
-  subscriptionStatus: string | null
-  currentPeriodEnd: Date | null
   active: boolean | null
   activation_key: string | null
   createdAt: Date | null
@@ -62,10 +54,6 @@ export type UserCountAggregateOutputType = {
   email: number
   password: number
   currency: number
-  stripeCustomerId: number
-  stripeSubscriptionId: number
-  subscriptionStatus: number
-  currentPeriodEnd: number
   active: number
   activation_key: number
   createdAt: number
@@ -80,10 +68,6 @@ export type UserMinAggregateInputType = {
   email?: true
   password?: true
   currency?: true
-  stripeCustomerId?: true
-  stripeSubscriptionId?: true
-  subscriptionStatus?: true
-  currentPeriodEnd?: true
   active?: true
   activation_key?: true
   createdAt?: true
@@ -96,10 +80,6 @@ export type UserMaxAggregateInputType = {
   email?: true
   password?: true
   currency?: true
-  stripeCustomerId?: true
-  stripeSubscriptionId?: true
-  subscriptionStatus?: true
-  currentPeriodEnd?: true
   active?: true
   activation_key?: true
   createdAt?: true
@@ -112,10 +92,6 @@ export type UserCountAggregateInputType = {
   email?: true
   password?: true
   currency?: true
-  stripeCustomerId?: true
-  stripeSubscriptionId?: true
-  subscriptionStatus?: true
-  currentPeriodEnd?: true
   active?: true
   activation_key?: true
   createdAt?: true
@@ -201,10 +177,6 @@ export type UserGroupByOutputType = {
   email: string
   password: string
   currency: string | null
-  stripeCustomerId: string | null
-  stripeSubscriptionId: string | null
-  subscriptionStatus: string | null
-  currentPeriodEnd: Date | null
   active: boolean
   activation_key: string | null
   createdAt: Date
@@ -238,10 +210,6 @@ export type UserWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringFilter<"User"> | string
   currency?: Prisma.StringNullableFilter<"User"> | string | null
-  stripeCustomerId?: Prisma.StringNullableFilter<"User"> | string | null
-  stripeSubscriptionId?: Prisma.StringNullableFilter<"User"> | string | null
-  subscriptionStatus?: Prisma.StringNullableFilter<"User"> | string | null
-  currentPeriodEnd?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   active?: Prisma.BoolFilter<"User"> | boolean
   activation_key?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -262,10 +230,6 @@ export type UserOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   currency?: Prisma.SortOrderInput | Prisma.SortOrder
-  stripeCustomerId?: Prisma.SortOrderInput | Prisma.SortOrder
-  stripeSubscriptionId?: Prisma.SortOrderInput | Prisma.SortOrder
-  subscriptionStatus?: Prisma.SortOrderInput | Prisma.SortOrder
-  currentPeriodEnd?: Prisma.SortOrderInput | Prisma.SortOrder
   active?: Prisma.SortOrder
   activation_key?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -289,10 +253,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringFilter<"User"> | string
   currency?: Prisma.StringNullableFilter<"User"> | string | null
-  stripeCustomerId?: Prisma.StringNullableFilter<"User"> | string | null
-  stripeSubscriptionId?: Prisma.StringNullableFilter<"User"> | string | null
-  subscriptionStatus?: Prisma.StringNullableFilter<"User"> | string | null
-  currentPeriodEnd?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   active?: Prisma.BoolFilter<"User"> | boolean
   activation_key?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -313,10 +273,6 @@ export type UserOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   currency?: Prisma.SortOrderInput | Prisma.SortOrder
-  stripeCustomerId?: Prisma.SortOrderInput | Prisma.SortOrder
-  stripeSubscriptionId?: Prisma.SortOrderInput | Prisma.SortOrder
-  subscriptionStatus?: Prisma.SortOrderInput | Prisma.SortOrder
-  currentPeriodEnd?: Prisma.SortOrderInput | Prisma.SortOrder
   active?: Prisma.SortOrder
   activation_key?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -335,10 +291,6 @@ export type UserScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
   currency?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  stripeCustomerId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  stripeSubscriptionId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  subscriptionStatus?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  currentPeriodEnd?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   active?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   activation_key?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -351,10 +303,6 @@ export type UserCreateInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -375,10 +323,6 @@ export type UserUncheckedCreateInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -399,10 +343,6 @@ export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -423,10 +363,6 @@ export type UserUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -447,10 +383,6 @@ export type UserCreateManyInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -463,10 +395,6 @@ export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -479,10 +407,6 @@ export type UserUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -495,10 +419,6 @@ export type UserCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   currency?: Prisma.SortOrder
-  stripeCustomerId?: Prisma.SortOrder
-  stripeSubscriptionId?: Prisma.SortOrder
-  subscriptionStatus?: Prisma.SortOrder
-  currentPeriodEnd?: Prisma.SortOrder
   active?: Prisma.SortOrder
   activation_key?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -511,10 +431,6 @@ export type UserMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   currency?: Prisma.SortOrder
-  stripeCustomerId?: Prisma.SortOrder
-  stripeSubscriptionId?: Prisma.SortOrder
-  subscriptionStatus?: Prisma.SortOrder
-  currentPeriodEnd?: Prisma.SortOrder
   active?: Prisma.SortOrder
   activation_key?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -527,10 +443,6 @@ export type UserMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   currency?: Prisma.SortOrder
-  stripeCustomerId?: Prisma.SortOrder
-  stripeSubscriptionId?: Prisma.SortOrder
-  subscriptionStatus?: Prisma.SortOrder
-  currentPeriodEnd?: Prisma.SortOrder
   active?: Prisma.SortOrder
   activation_key?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -558,10 +470,6 @@ export type StringFieldUpdateOperationsInput = {
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
-}
-
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
 }
 
 export type BoolFieldUpdateOperationsInput = {
@@ -714,10 +622,6 @@ export type UserCreateWithoutRefreshTokensInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -737,10 +641,6 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -776,10 +676,6 @@ export type UserUpdateWithoutRefreshTokensInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -799,10 +695,6 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -822,10 +714,6 @@ export type UserCreateWithoutAccountsInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -845,10 +733,6 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -884,10 +768,6 @@ export type UserUpdateWithoutAccountsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -907,10 +787,6 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -930,10 +806,6 @@ export type UserCreateWithoutCategoriesInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -953,10 +825,6 @@ export type UserUncheckedCreateWithoutCategoriesInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -992,10 +860,6 @@ export type UserUpdateWithoutCategoriesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1015,10 +879,6 @@ export type UserUncheckedUpdateWithoutCategoriesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1038,10 +898,6 @@ export type UserCreateWithoutTransactionsInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -1061,10 +917,6 @@ export type UserUncheckedCreateWithoutTransactionsInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -1100,10 +952,6 @@ export type UserUpdateWithoutTransactionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1123,10 +971,6 @@ export type UserUncheckedUpdateWithoutTransactionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1146,10 +990,6 @@ export type UserCreateWithoutBudgetsInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -1169,10 +1009,6 @@ export type UserUncheckedCreateWithoutBudgetsInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -1208,10 +1044,6 @@ export type UserUpdateWithoutBudgetsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1231,10 +1063,6 @@ export type UserUncheckedUpdateWithoutBudgetsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1254,10 +1082,6 @@ export type UserCreateWithoutGoalsInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -1277,10 +1101,6 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -1316,10 +1136,6 @@ export type UserUpdateWithoutGoalsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1339,10 +1155,6 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1362,10 +1174,6 @@ export type UserCreateWithoutGoalContributionsInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -1385,10 +1193,6 @@ export type UserUncheckedCreateWithoutGoalContributionsInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -1432,10 +1236,6 @@ export type UserScalarWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringFilter<"User"> | string
   currency?: Prisma.StringNullableFilter<"User"> | string | null
-  stripeCustomerId?: Prisma.StringNullableFilter<"User"> | string | null
-  stripeSubscriptionId?: Prisma.StringNullableFilter<"User"> | string | null
-  subscriptionStatus?: Prisma.StringNullableFilter<"User"> | string | null
-  currentPeriodEnd?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   active?: Prisma.BoolFilter<"User"> | boolean
   activation_key?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -1448,10 +1248,6 @@ export type UserCreateWithoutRecurringBillsInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -1471,10 +1267,6 @@ export type UserUncheckedCreateWithoutRecurringBillsInput = {
   email: string
   password: string
   currency?: string | null
-  stripeCustomerId?: string | null
-  stripeSubscriptionId?: string | null
-  subscriptionStatus?: string | null
-  currentPeriodEnd?: Date | string | null
   active?: boolean
   activation_key?: string | null
   createdAt?: Date | string
@@ -1510,10 +1302,6 @@ export type UserUpdateWithoutRecurringBillsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1533,10 +1321,6 @@ export type UserUncheckedUpdateWithoutRecurringBillsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1556,10 +1340,6 @@ export type UserUpdateWithoutGoalContributionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1579,10 +1359,6 @@ export type UserUncheckedUpdateWithoutGoalContributionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1602,10 +1378,6 @@ export type UserUncheckedUpdateManyWithoutGoalContributionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subscriptionStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activation_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1712,10 +1484,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   email?: boolean
   password?: boolean
   currency?: boolean
-  stripeCustomerId?: boolean
-  stripeSubscriptionId?: boolean
-  subscriptionStatus?: boolean
-  currentPeriodEnd?: boolean
   active?: boolean
   activation_key?: boolean
   createdAt?: boolean
@@ -1737,10 +1505,6 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   password?: boolean
   currency?: boolean
-  stripeCustomerId?: boolean
-  stripeSubscriptionId?: boolean
-  subscriptionStatus?: boolean
-  currentPeriodEnd?: boolean
   active?: boolean
   activation_key?: boolean
   createdAt?: boolean
@@ -1753,10 +1517,6 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   password?: boolean
   currency?: boolean
-  stripeCustomerId?: boolean
-  stripeSubscriptionId?: boolean
-  subscriptionStatus?: boolean
-  currentPeriodEnd?: boolean
   active?: boolean
   activation_key?: boolean
   createdAt?: boolean
@@ -1769,17 +1529,13 @@ export type UserSelectScalar = {
   email?: boolean
   password?: boolean
   currency?: boolean
-  stripeCustomerId?: boolean
-  stripeSubscriptionId?: boolean
-  subscriptionStatus?: boolean
-  currentPeriodEnd?: boolean
   active?: boolean
   activation_key?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "currency" | "stripeCustomerId" | "stripeSubscriptionId" | "subscriptionStatus" | "currentPeriodEnd" | "active" | "activation_key" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "currency" | "active" | "activation_key" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -1812,10 +1568,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     email: string
     password: string
     currency: string | null
-    stripeCustomerId: string | null
-    stripeSubscriptionId: string | null
-    subscriptionStatus: string | null
-    currentPeriodEnd: Date | null
     active: boolean
     activation_key: string | null
     createdAt: Date
@@ -2256,10 +2008,6 @@ export interface UserFieldRefs {
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly currency: Prisma.FieldRef<"User", 'String'>
-  readonly stripeCustomerId: Prisma.FieldRef<"User", 'String'>
-  readonly stripeSubscriptionId: Prisma.FieldRef<"User", 'String'>
-  readonly subscriptionStatus: Prisma.FieldRef<"User", 'String'>
-  readonly currentPeriodEnd: Prisma.FieldRef<"User", 'DateTime'>
   readonly active: Prisma.FieldRef<"User", 'Boolean'>
   readonly activation_key: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>

@@ -13,10 +13,6 @@ model User {
   email     String   @unique
   password  String
   currency  String? @default("EUR")
-  stripeCustomerId  String?
-  stripeSubscriptionId  String?
-  subscriptionStatus  String?
-  currentPeriodEnd  DateTime?
   active  Boolean @default(false)
   activation_key  String?  @default(uuid())
   createdAt DateTime @default(now())

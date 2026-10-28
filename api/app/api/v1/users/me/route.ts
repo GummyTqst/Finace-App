@@ -11,8 +11,6 @@ export async function GET(request: NextRequest) {
       name: user.name,
       email: user.email,
       currency: user.currency ?? "EUR",
-      subscriptionStatus: user.subscriptionStatus,
-      currentPeriodEnd: user.currentPeriodEnd,
       active: user.active,
     },
   });
