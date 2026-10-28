@@ -1,0 +1,93 @@
+services:
+  app:
+    container_name: enterprise-app
+    ports:
+      - "3100:3000"
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    environment:
+      # her kan vi lave miljøvariabler (.env)
+      API_URL: ${API_URL}
+    depends_on:
+      api:
+        condition: service_healthy
+  admin:
+    container_name: enterprise-admin
+    ports:
+      - "3200:3000"
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    #environment: # her kan vi lave miljøvariabler (.env)
+    depends_on:
+      api:
+        condition: service_healthy
+  api:
+    container_name: enterprise-api
+    ports:
+      - "3300:3000"
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    environment:
+      # her kan vi lave miljøvariabler (.env)
+      TOKEN_SECRET: ${TOKEN_SECRET}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/').then((res) => process.exit(res.ok ? 0 : 1)).catch(() => process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    depends_on:
+      postgres:
+        condition: service_healthy
+  marketing:
+    container_name: enterprise-marketing
+    ports:
+      - "3400:3000"
+    build:
+      context: ./marketing
+      dockerfile: Dockerfile
+    environment:
+      # her kan vi lave miljøvariabler (.env)
+      # SMTP_USER: ${SMTP_USER}
+      # SMTP_APP_PASSWORD: ${SMTP_APP_PASSWORD}
+      STRIPE_SECRET: ${STRIPE_SECRET}
+    depends_on:
+      api:
+        condition: service_healthy
+  status:
+    container_name: enterprise-status
+    ports:
+      - "8080:80"
+    build:
+      context: ./status
+      dockerfile: Dockerfile
+    #environment: # her kan vi lave miljøvariabler (.env)
+  postgres:
+    container_name: enterprise-postgres
+    ports:
+      - "55432:5432"
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

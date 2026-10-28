@@ -1,0 +1,141 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  currency  String? @default("EUR")
+  stripeCustomerId  String?
+  stripeSubscriptionId  String?
+  subscriptionStatus  String?
+  currentPeriodEnd  DateTime?
+  active  Boolean @default(false)
+  activation_key  String?  @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  refreshTokens RefreshToken[]
+  accounts        Account[]
+  transactions    Transaction[]
+  categories      Category[]
+  budgets         Budget[]
+  goals           Goal[]
+  goalContributions GoalContribution[]
+  recurringBills RecurringBill[]
+}
+
+model RefreshToken {
+  id  String  @id @default(uuid())
+  userId  String
+  token  String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id        String   @id @default(uuid())
+  userId    String
+  name      String
+  type      String
+  balance   Decimal  @default(0) @db.Decimal(14, 2)
+  currency  String  @default("EUR")
+  institution String?
+  isLiability Boolean @default(false)
+  createdAt DateTime @default(now())
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  userId    String
+  name      String
+  type      String    @default("expense")
+  icon      String?
+  isDefault  Boolean   @default(false)
+  color     String?
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  budgets      Budget[]
+}
+
+model Transaction {
+  id          String   @id @default(uuid())
+  userId      String
+  accountId   String
+  categoryId  String?
+  type        String               // income | expense | transfer
+  description String
+  amount      Decimal  @db.Decimal(14, 2)
+  date        DateTime
+  notes       String?
+  recurringId String?              // links to RecurringTransaction if auto-generated
+  createdAt   DateTime @default(now())
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  account  Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+}
+
+model Budget {
+  id         String  @id @default(uuid())
+  userId     String
+  categoryId String
+  amount     Decimal @db.Decimal(14, 2)
+  month      Int     // 1-12
+  year       Int
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, categoryId, month, year])
+}
+
+model Goal {
+  id           String   @id @default(uuid())
+  userId       String
+  name         String
+  targetAmount Decimal  @db.Decimal(14, 2)
+  deadline     DateTime?
+  color        String   @default("#277c78")
+  createdAt    DateTime @default(now())
+
+  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contributions    GoalContribution[]
+}
+
+model GoalContribution {
+  id        String   @id @default(uuid())
+  goalId    String
+  amount    Decimal  @db.Decimal(14, 2)
+  date      DateTime @default(now())
+
+  goal Goal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+
+  users User[]
+}
+
+model RecurringBill {
+  id          String   @id @default(uuid())
+  userId      String
+  name        String
+  amount      Decimal  @db.Decimal(14, 2)
+  dueDay      Int
+  category    String?
+  account     String?
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
