@@ -1,10 +1,19 @@
-# 💰 Personal Finance SaaS
+# 💰 Personal Finance
 
 A modern personal finance management platform designed to help users understand where their money goes, plan their spending, track financial goals, and forecast their future finances.
 
-The application turns the traditional personal-finance dashboard into a complete SaaS experience with transaction tracking, budgets, savings goals, recurring payments, financial reports, forecasting, and personalized insights.
-
 ---
+
+
+## Pictures overview
+
+![Login Screen](pictures/login.png)
+![Overview Screen](pictures/overview.png)
+![Transactions Screen](pictures/transaction.png)
+![Pots Screen](pictures/pots.png)
+![Modal Transactions Screen](pictures/modaltransactions.png)
+![Modal Pots Screen](pictures/modalpots.png)
+
 
 ## ✨ Overview
 
