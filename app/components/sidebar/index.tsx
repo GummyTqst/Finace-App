@@ -12,7 +12,6 @@ import {
   PotsIcon,
   RecurringBillsIcon,
   MinimizeMenuIcon,
-  SettingsIcon,
 } from "./icons";
 
 interface MenuItem {
@@ -70,7 +69,6 @@ const Sidebar = ({ user }: SidebarProps) => {
     { name: "Pots", path: "/pots", icon: PotsIcon },
     { name: "Recurring bills", path: "/bills", icon: RecurringBillsIcon },
     { name: "Accounts", path: "/accounts", icon: OverviewIcon },
-    { name: "Settings", path: "/settings", icon: SettingsIcon },
   ];
 
   const isActive = (path: string) =>
