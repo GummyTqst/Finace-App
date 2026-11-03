@@ -12,9 +12,14 @@ export default async function DashboardLayout({ children }: LayoutProps<"/">) {
     redirect("/login");
   }
 
-  const accounts = await apiFetch<{
-    accounts: { id: string }[];
-  }>("/accounts")
+  const [accounts, profile] = await Promise.all([
+    apiFetch<{
+      accounts: { id: string }[];
+    }>("/accounts"),
+    apiFetch<{
+      user: { name: string; email: string };
+    }>("/users/me"),
+  ]);
 
   if (accounts.accounts.length === 0) {
     redirect("/onboarding");
@@ -22,7 +27,7 @@ export default async function DashboardLayout({ children }: LayoutProps<"/">) {
 
   return (
     <div className="flex h-dvh overflow-hidden bg-beige-100">
-      <Sidebar />
+      <Sidebar user={profile.user} />
       <main className="flex-1 overflow-y-auto px-1000 py-800">{children}</main>
     </div>
   );
