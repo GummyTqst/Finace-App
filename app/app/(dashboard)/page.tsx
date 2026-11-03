@@ -1,4 +1,5 @@
 import BalanceSummaryCard from "@/components/overview/balance-summary-card";
+import { OverviewBudgetCard } from "@/components/budgets/budget-visuals";
 import { apiFetch } from "@/lib/api";
 import { formatCurrency } from "@/lib/format";
 import Link from "next/link";
@@ -227,49 +228,7 @@ export default async function OverviewPage() {
 
             <div className="space-y-400 lg:col-span-2">
                 <div>
-                    <section className={`${cardBase} bg-white`}>
-                        <header className="flex items-center justify-between mb-300">
-                            <h2 className="text-lg font-bold text-grey-900">Budgets</h2>
-                            <Link
-                            href="/budgets"
-                            className="text-sm font-medium text-grey-500 hover:text-grey-900"
-                            >
-                            See Details
-                            </Link>
-                        </header>
-                        <ul className="space-y-250">
-                            {data.budgetSummary.length === 0 && (
-                            <li className="text-sm text-grey-500">
-                                No budgets for this month
-                            </li>
-                            )}
-                            {data.budgetSummary.map((b) => (
-                            <li key={b.id}>
-                                <div className="flex items-center justify-between mb-100">
-                                <span className="flex items-center gap-100 text-sm font-medium text-grey-900">
-                                    <span
-                                    className="w-3 h-3 rounded-full"
-                                    style={{ backgroundColor: b.color }}
-                                    />
-                                    {b.name}
-                                </span>
-                                <span className="text-sm text-grey-500">
-                                    {formatCurrency(b.spent)}
-                                </span>
-                                </div>
-                                <div className="h-2 rounded-full bg-beige-100">
-                                <div
-                                    className="h-full rounded-full"
-                                    style={{
-                                    width: `${Math.min((b.spent / b.amount) * 100, 100)}%`,
-                                    backgroundColor: b.color,
-                                    }}
-                                />
-                                </div>
-                            </li>
-                            ))}
-                        </ul>
-                    </section>
+                    <OverviewBudgetCard budgets={data.budgetSummary} />
                 </div>
                 <div>
                     RecurringBills

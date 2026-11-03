@@ -51,7 +51,14 @@ export async function GET(request: NextRequest) {
         type: "expense",
         date: { gte: start, lt: end },
       },
-      select: { categoryId: true, amount: true },
+      select: {
+        id: true,
+        categoryId: true,
+        amount: true,
+        description: true,
+        date: true,
+      },
+      orderBy: { date: "desc" },
     }),
   ]);
 
@@ -75,6 +82,15 @@ export async function GET(request: NextRequest) {
       spent,
       remaining: amount - spent,
       percentage: amount > 0 ? Math.round((spent / amount) * 100) : 0,
+      latestSpending: monthExpenses
+        .filter((transaction) => transaction.categoryId === b.categoryId)
+        .slice(0, 3)
+        .map((transaction) => ({
+          id: transaction.id,
+          description: transaction.description,
+          amount: Number(transaction.amount),
+          date: transaction.date,
+        })),
     };
   });
 
