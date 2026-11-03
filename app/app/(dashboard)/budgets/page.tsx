@@ -58,7 +58,7 @@ export default async function BudgetsPage() {
       </header>
 
       <div className="grid grid-cols-1 gap-400 xl:grid-cols-[minmax(300px,0.8fr)_minmax(0,1.2fr)]">
-        <section className="rounded-2xl bg-white p-400 sm:p-500">
+        <section className="self-start rounded-2xl bg-white p-400 sm:p-500">
           <div className="flex justify-center py-300">
             <BudgetDonut
               budgets={data.budgets}
