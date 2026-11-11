@@ -10,8 +10,17 @@ export async function GET(request: NextRequest) {
     where: { userId: user.id },
     orderBy: { name: "asc" },
   });
+
+  const seenNames = new Set<string>();
+  const uniqueCategories = categories.filter((category) => {
+    const normalizedName = category.name.trim().toLocaleLowerCase();
+    if (seenNames.has(normalizedName)) return false;
+    seenNames.add(normalizedName);
+    return true;
+  });
+
   return NextResponse.json({
-    categories: categories.map((c) => ({
+    categories: uniqueCategories.map((c) => ({
       id: c.id,
       name: c.name,
       color: c.color,
