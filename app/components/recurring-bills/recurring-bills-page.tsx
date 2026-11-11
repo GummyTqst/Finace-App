@@ -60,6 +60,11 @@ function dateForDueDay(day?: number) {
   return `${now.getFullYear()}-${month}-${date}`;
 }
 
+function formatNextDueDate(date: string | null | undefined, dueDay: number) {
+  if (!date) return `Monthly-${ordinal(dueDay)}`;
+  return `Next: ${new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short" }).format(new Date(date))}`;
+}
+
 function BillForm({ action, bill, accounts, categories, onCancel }: BillFormProps) {
   return (
     <form action={async (formData) => { await action(formData); onCancel?.(); }} className="grid gap-200 sm:grid-cols-2 lg:grid-cols-5">
@@ -243,12 +248,17 @@ export default function RecurringBillsPage({ bills, currency, accounts, categori
                   <div className="flex min-w-0 items-center gap-250">
                     <BillIcon index={index} />
                     <div className="min-w-0">
-                      <p className="truncate text-sm font-bold text-grey-900">{bill.name}</p>
+                      <div className="flex min-w-0 items-center gap-200">
+                        <p className="truncate text-sm font-bold text-grey-900">{bill.name}</p>
+                        <span className={`shrink-0 rounded-full px-150 py-50 text-[10px] font-bold ${bill.autoCreate ? "bg-green/10 text-green" : "bg-beige-100 text-grey-500"}`}>
+                          {bill.autoCreate ? "Auto" : "Manual"}
+                        </span>
+                      </div>
                       {(bill.category || bill.account) && <p className="truncate text-xs text-grey-500">{bill.category ?? bill.account}</p>}
                     </div>
                   </div>
                   <span className={`flex items-center gap-150 text-xs sm:text-sm ${!bill.active ? "text-grey-500" : isDueSoon ? "text-red-600" : "text-green"}`}>
-                    {paidThisMonth ? "Paid" : `Monthly-${ordinal(bill.dueDay)}`}
+                    {paidThisMonth ? "Paid" : formatNextDueDate(bill.nextDueDate, bill.dueDay)}
                     <span className={`grid h-4 w-4 place-items-center rounded-full text-[10px] text-white ${!bill.active ? "bg-grey-500" : paidThisMonth || !isDueSoon ? "bg-green" : "bg-red-600"}`}>{!bill.active ? "–" : paidThisMonth || !isDueSoon ? "✓" : "!"}</span>
                   </span>
                   <span className={`text-right text-sm font-bold ${isDueSoon && !paidThisMonth ? "text-red-600" : "text-grey-900"}`}>{formatCurrency(bill.amount, currency)}</span>
