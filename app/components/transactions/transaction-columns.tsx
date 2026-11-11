@@ -13,7 +13,8 @@ const columnHelper = createColumnHelper<
     Transaction
 >();
   
-export const transactionColumns = columnHelper.columns([
+export function transactionColumns(currency = "EUR") {
+return columnHelper.columns([
     columnHelper.accessor("description", {
         header: "Recipient / Sender",
     
@@ -87,9 +88,10 @@ export const transactionColumns = columnHelper.columns([
                     }`}
                 >
                     {isIncome ? "+" : "-"}
-                    {formatCurrency(info.getValue())}
+                    {formatCurrency(info.getValue(), currency)}
                 </span>
             );
         },
     }),
   ]);
+}

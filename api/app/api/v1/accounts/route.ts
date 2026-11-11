@@ -27,6 +27,7 @@ export async function GET(request: NextRequest) {
   });
 
   return NextResponse.json({
+    currency: user.currency ?? "EUR",
     accounts: accounts.map((account) => ({
       id: account.id,
       name: account.name,

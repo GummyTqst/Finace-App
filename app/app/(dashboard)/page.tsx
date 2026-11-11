@@ -14,6 +14,7 @@ type OverviewPot = {
 }
 
 type OverviewData = {
+  currency: string;
   totalBalance: number;
   income: number;
   expenses: number;
@@ -71,9 +72,11 @@ function SummaryCard({
 export function PotsSummary({
     pots = [],
     totalSaved,
+    currency = "EUR",
 }: {
     pots?: OverviewPot[]
     totalSaved: number
+    currency?: string
 }) {
     const visiblePots = pots.slice(0, 4);
 
@@ -108,7 +111,7 @@ export function PotsSummary({
                   <div className="flex flex-col">
                       <p className="text-xs text-slate-500 font-medium">Total Saved</p>
                       <p className="text-3xl font-bold text-slate-900 mt-1">
-                          {formatCurrency(totalSaved)}
+                          {formatCurrency(totalSaved, currency)}
                       </p>
                   </div>
               </div>
@@ -126,7 +129,7 @@ export function PotsSummary({
                           <div className="flex flex-col">
                               <p className="text-xs text-slate-500 truncate">{pot.name}</p>
                               <p className="text-sm font-bold text-slate-900">
-                                  {formatCurrency(pot.saved)}
+                                  {formatCurrency(pot.saved, currency)}
                               </p>
                           </div>
                       </div>
@@ -160,14 +163,15 @@ export default async function OverviewPage() {
         <BalanceSummaryCard 
           accounts={data.accounts}
           totalBalance={data.totalBalance}
+          currency={data.currency}
         />
         <SummaryCard
           title="Income"
-          value={`${formatCurrency(data.income)}`}
+          value={`${formatCurrency(data.income, data.currency)}`}
         />
         <SummaryCard
           title="Expenses"
-          value={`${formatCurrency(data.expenses)}`}
+          value={`${formatCurrency(data.expenses, data.currency)}`}
         />
       </div>
 
@@ -177,6 +181,7 @@ export default async function OverviewPage() {
                 <PotsSummary 
                     totalSaved={data.potsTotal}
                     pots={data.potsPreview}
+                    currency={data.currency}
                 />
 
                 <div>
@@ -217,7 +222,7 @@ export default async function OverviewPage() {
                                 className={`font-bold ${t.type === "income" ? "text-green" : "text-grey-900"}`}
                                 >
                                 {t.type === "income" ? "+" : "-"}
-                                {formatCurrency(t.amount)}
+                                {formatCurrency(t.amount, data.currency)}
                                 </span>
                             </li>
                             ))}
@@ -228,7 +233,7 @@ export default async function OverviewPage() {
 
             <div className="space-y-400 lg:col-span-2">
                 <div>
-                    <OverviewBudgetCard budgets={data.budgetSummary} />
+                    <OverviewBudgetCard budgets={data.budgetSummary} currency={data.currency} />
                 </div>
                 <div>
                     RecurringBills

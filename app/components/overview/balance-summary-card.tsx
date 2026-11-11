@@ -13,9 +13,11 @@ type Account = {
 export default function BalanceSummaryCard({
     accounts,
     totalBalance,
+    currency,
 }: {
     accounts: Account[];
     totalBalance: number;
+    currency: string;
 }) {
     const [selectedAccountId, setSelectedAccountId] = useState("all")
 
@@ -47,8 +49,9 @@ export default function BalanceSummaryCard({
                 </select>
             </div>
 
-            <p className="mt-200">
-                {formatCurrency(displayedBalance)}
+            <p className="mt-200 flex items-baseline gap-200">
+                {formatCurrency(displayedBalance, currency)}
+                <span className="text-sm font-medium text-grey-300">{currency}</span>
             </p>
         </div>
     )

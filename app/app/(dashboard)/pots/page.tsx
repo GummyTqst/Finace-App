@@ -11,7 +11,7 @@ type Pot = {
   color: string;
 };
 export default async function PotsPage() {
-  let data: { pots: Pot[] };
+  let data: { currency: string; pots: Pot[] };
   try {
     data = await apiFetch("/pots");
   } catch {
@@ -46,7 +46,7 @@ export default async function PotsPage() {
               <div className="flex items-end justify-between gap-300">
                 <span className="text-sm text-grey-500">Total Saved</span>
                 <strong className="text-3xl text-grey-900">
-                  {formatCurrency(p.saved)}
+                  {formatCurrency(p.saved, data.currency)}
                 </strong>
               </div>
               <div className="my-300 h-2 rounded-full bg-beige-100">
@@ -66,11 +66,11 @@ export default async function PotsPage() {
                   %
                 </span>
                 <span className="text-grey-500">
-                  Target of {formatCurrency(p.targetAmount)}
+                  Target of {formatCurrency(p.targetAmount, data.currency)}
                 </span>
               </div>
             </div>
-            <PotActions pot={p} />
+              <PotActions pot={p} currency={data.currency} />
           </article>
         ))}
       </div>

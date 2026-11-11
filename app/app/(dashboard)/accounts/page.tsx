@@ -14,7 +14,7 @@ type Account = {
 }
 
 export default async function AccountsPage() {
-    let data: { accounts: Account[] }
+    let data: { currency: string; accounts: Account[] }
 
     try {
         data = await apiFetch("/accounts");
@@ -90,7 +90,7 @@ export default async function AccountsPage() {
                     </div>
 
                     <strong className="text-xl text-grey-900">
-                        {formatCurrency(account.balance)}
+                        {formatCurrency(account.balance, data.currency)}
                     </strong>
                     </div>
 

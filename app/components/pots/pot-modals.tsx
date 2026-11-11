@@ -273,7 +273,7 @@ export function ThemeSelect({
   );
 }
 
-export function PotActions({ pot }: { pot: PotModalData }) {
+export function PotActions({ pot, currency = "EUR" }: { pot: PotModalData; currency?: string }) {
   const [mode, setMode] = useState<"add" | "withdraw" | null>(null);
   const [amount, setAmount] = useState("");
   const action = mode ?? "add";
@@ -340,7 +340,7 @@ export function PotActions({ pot }: { pot: PotModalData }) {
             <div className="flex items-end justify-between gap-300">
               <span className="text-sm text-grey-500">New Amount</span>
               <strong className="text-3xl text-grey-900">
-                {formatCurrency(projectedSaved)}
+                {formatCurrency(projectedSaved, currency)}
               </strong>
             </div>
             <div className="mt-300 flex gap-0.5 h-2 overflow-hidden rounded-full bg-beige-100">
@@ -361,7 +361,7 @@ export function PotActions({ pot }: { pot: PotModalData }) {
                 {Math.round(percentage * 100) / 100}%
               </span>
               <span className="text-grey-500">
-                Target of {formatCurrency(pot.targetAmount)}
+                Target of {formatCurrency(pot.targetAmount, currency)}
               </span>
             </div>
           </section>

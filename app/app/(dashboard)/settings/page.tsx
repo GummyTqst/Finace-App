@@ -1,6 +1,6 @@
 import { apiFetch } from "@/lib/api";
 import { formatCurrency } from "@/lib/format";
-import { addMoneyToBalance } from "@/lib/finance-actions";
+import { addMoneyToBalance, updateCurrency } from "@/lib/finance-actions";
 import { redirect } from "next/navigation";
 import SettingsTab from "@/components/settings/settings-tabs";
 
@@ -86,6 +86,18 @@ export default async function SettingsPage() {
                     </dd>
                   </div>
                 </dl>
+
+                <form action={updateCurrency} className="mt-400 flex max-w-sm gap-200">
+                  <select name="currency" defaultValue={data.user.currency} className="field">
+                    <option value="EUR">EUR — Euro</option>
+                    <option value="USD">USD — US Dollar</option>
+                    <option value="GBP">GBP — Pound Sterling</option>
+                    <option value="DKK">DKK — Danish Krone</option>
+                    <option value="SEK">SEK — Swedish Krona</option>
+                    <option value="NOK">NOK — Norwegian Krone</option>
+                  </select>
+                  <button className="button" type="submit">Save</button>
+                </form>
               </div>
             ),
           },
@@ -106,7 +118,7 @@ export default async function SettingsPage() {
                   </div>
 
                   <strong className="text-xl text-grey-900">
-                    {formatCurrency(balance)}
+                    {formatCurrency(balance, data.user.currency)}
                   </strong>
                 </div>
 

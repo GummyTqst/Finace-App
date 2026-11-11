@@ -16,6 +16,7 @@ export type TransactionOption = {
 }
 
 export type TransactionPageData = {
+    currency: string
     transactions: Transaction[]
     total: number
     page: number

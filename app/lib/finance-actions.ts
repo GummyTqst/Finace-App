@@ -174,6 +174,17 @@ export async function addMoneyToBalance(form: FormData) {
   revalidatePath("/pots");
 }
 
+export async function updateCurrency(form: FormData) {
+  await apiFetch("/users/me", {
+    method: "PATCH",
+    body: JSON.stringify({ currency: value(form, "currency") }),
+  });
+
+  revalidatePath("/", "layout");
+  revalidatePath("/");
+  revalidatePath("/settings");
+}
+
 // Onboarding section
 
 export async function completeOnboarding(data: {

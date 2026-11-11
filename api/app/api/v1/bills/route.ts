@@ -20,6 +20,7 @@ export async function GET(request: NextRequest) {
     orderBy: { dueDay: "asc" },
   });
   return NextResponse.json({
+    currency: user.currency ?? "EUR",
     bills: bills.map((bill) => ({ ...bill, amount: Number(bill.amount) })),
   });
 }

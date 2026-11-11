@@ -68,6 +68,7 @@ export async function GET(request: NextRequest) {
   const potsTotal = pots.reduce((sum, pot) => sum + pot.saved, 0);
 
   return NextResponse.json({
+    currency: user.currency ?? "EUR",
     totalBalance,
     income,
     expenses,

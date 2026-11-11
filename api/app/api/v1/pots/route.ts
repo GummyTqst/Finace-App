@@ -26,6 +26,7 @@ export async function GET(request: NextRequest) {
     orderBy: { createdAt: "desc" },
   });
   return NextResponse.json({
+    currency: user.currency ?? "EUR",
     pots: pots.map((pot) => ({
       id: pot.id,
       name: pot.name,

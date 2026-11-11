@@ -41,31 +41,33 @@ export function BudgetDonut({
   totalSpent,
   totalBudgeted,
   compact = false,
+  currency = "EUR",
 }: {
   budgets: BudgetVisual[];
   totalSpent: number;
   totalBudgeted: number;
   compact?: boolean;
+  currency?: string;
 }) {
   return (
     <div
       className={`relative shrink-0 rounded-full ${compact ? "h-48 w-48 p-5" : "h-56 w-56 p-6"}`}
       style={{ background: donutGradient(budgets) }}
-      aria-label={`${formatCurrency(totalSpent)} spent of ${formatCurrency(totalBudgeted)} budgeted`}
+      aria-label={`${formatCurrency(totalSpent, currency)} spent of ${formatCurrency(totalBudgeted, currency)} budgeted`}
     >
       <div className="flex h-full w-full flex-col items-center justify-center rounded-full bg-white text-center">
         <strong className={`${compact ? "text-3xl" : "text-4xl"} font-bold text-grey-900`}>
-          {formatCurrency(totalSpent)}
+          {formatCurrency(totalSpent, currency)}
         </strong>
         <span className="mt-50 text-xs text-grey-500">
-          of {formatCurrency(totalBudgeted)} limit
+          of {formatCurrency(totalBudgeted, currency)} limit
         </span>
       </div>
     </div>
   );
 }
 
-export function SpendingSummary({ budgets }: { budgets: BudgetVisual[] }) {
+export function SpendingSummary({ budgets, currency = "EUR" }: { budgets: BudgetVisual[]; currency?: string }) {
   return (
     <div>
       <h2 className="text-xl font-bold text-grey-900">Spending Summary</h2>
@@ -84,9 +86,9 @@ export function SpendingSummary({ budgets }: { budgets: BudgetVisual[] }) {
             </span>
             <span className="shrink-0 text-sm text-grey-500">
               <strong className="font-bold text-grey-900">
-                {formatCurrency(budget.spent)}
+                {formatCurrency(budget.spent, currency)}
               </strong>{" "}
-              of {formatCurrency(budget.amount)}
+              of {formatCurrency(budget.amount, currency)}
             </span>
           </li>
         ))}
@@ -98,9 +100,11 @@ export function SpendingSummary({ budgets }: { budgets: BudgetVisual[] }) {
 export function BudgetDetailCard({
   budget,
   menu,
+  currency = "EUR",
 }: {
   budget: BudgetVisual;
   menu: ReactNode;
+  currency?: string;
 }) {
   const color = colorForBudget(budget.color);
   const progress = Math.min(Math.max(budget.percentage, 0), 100);
@@ -116,7 +120,7 @@ export function BudgetDetailCard({
       </header>
 
       <p className="mt-300 text-sm text-grey-500">
-        Maximum of {formatCurrency(budget.amount)}
+        Maximum of {formatCurrency(budget.amount, currency)}
       </p>
 
       <div className="mt-300 h-7 rounded-md bg-beige-100 p-1">
@@ -129,12 +133,12 @@ export function BudgetDetailCard({
       <div className="mt-250 grid grid-cols-2 gap-300">
         <div className="border-l-4 pl-200" style={{ borderColor: color }}>
           <p className="text-xs text-grey-500">Spent</p>
-          <p className="mt-50 font-bold text-grey-900">{formatCurrency(budget.spent)}</p>
+          <p className="mt-50 font-bold text-grey-900">{formatCurrency(budget.spent, currency)}</p>
         </div>
         <div className="border-l-4 border-beige-100 pl-200">
           <p className="text-xs text-grey-500">Remaining</p>
           <p className="mt-50 font-bold text-grey-900">
-            {formatCurrency(Math.max(budget.remaining, 0))}
+            {formatCurrency(Math.max(budget.remaining, 0), currency)}
           </p>
         </div>
       </div>
@@ -155,7 +159,7 @@ export function BudgetDetailCard({
                 <span className="truncate text-xs font-bold text-grey-900">{transaction.description}</span>
               </div>
               <div className="shrink-0 text-right">
-                <p className="text-xs font-bold text-grey-900">-{formatCurrency(transaction.amount)}</p>
+                <p className="text-xs font-bold text-grey-900">-{formatCurrency(transaction.amount, currency)}</p>
                 <p className="text-xs text-grey-500">
                   {new Date(transaction.date).toLocaleDateString("en-GB", {
                     day: "numeric",
@@ -174,8 +178,10 @@ export function BudgetDetailCard({
 
 export function OverviewBudgetCard({
   budgets,
+  currency = "EUR",
 }: {
   budgets: Pick<BudgetVisual, "id" | "name" | "color" | "amount" | "spent">[];
+  currency?: string;
 }) {
   const totalBudgeted = budgets.reduce((sum, budget) => sum + budget.amount, 0);
   const totalSpent = budgets.reduce((sum, budget) => sum + budget.spent, 0);
@@ -198,6 +204,7 @@ export function OverviewBudgetCard({
           totalSpent={totalSpent}
           totalBudgeted={totalBudgeted}
           compact
+          currency={currency}
         />
         <ul className="grid w-full flex-1 grid-cols-2 gap-x-400 gap-y-300 sm:grid-cols-1">
           {budgets.map((budget) => (
@@ -208,7 +215,7 @@ export function OverviewBudgetCard({
               />
               <div>
                 <p className="text-xs text-grey-500">{budget.name}</p>
-                <p className="text-sm font-bold text-grey-900">{formatCurrency(budget.amount)}</p>
+                <p className="text-sm font-bold text-grey-900">{formatCurrency(budget.amount, currency)}</p>
               </div>
             </li>
           ))}

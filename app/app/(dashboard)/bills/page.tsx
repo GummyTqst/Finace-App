@@ -12,7 +12,7 @@ type Bill = {
   active: boolean;
 };
 export default async function BillsPage() {
-  let data: { bills: Bill[] };
+  let data: { currency: string; bills: Bill[] };
   try {
     data = await apiFetch("/bills");
   } catch {
@@ -26,7 +26,7 @@ export default async function BillsPage() {
       <div>
         <h1 className="text-2xl font-bold text-grey-900">Recurring bills</h1>
         <p className="text-sm text-grey-500">
-          You have {formatCurrency(total)} in active recurring bills.
+          You have {formatCurrency(total, data.currency)} in active recurring bills.
         </p>
       </div>
       <div className="grid grid-cols-1 gap-400 lg:grid-cols-3">
@@ -53,7 +53,7 @@ export default async function BillsPage() {
                 </div>
                 <div className="text-right">
                   <p className="font-bold text-grey-900">
-                    {formatCurrency(b.amount)}
+                    {formatCurrency(b.amount, data.currency)}
                   </p>
                   <p
                     className={`text-xs ${

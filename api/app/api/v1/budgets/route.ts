@@ -95,6 +95,7 @@ export async function GET(request: NextRequest) {
   });
 
   return NextResponse.json({
+    currency: user.currency ?? "EUR",
     month,
     year,
     totalBudgeted: rows.reduce((s, r) => s + r.amount, 0),

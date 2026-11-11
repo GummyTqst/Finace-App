@@ -6,14 +6,16 @@ import { transactionColumns, transactionFeatures } from "./transaction-columns"
 
 type Props = {
     transactions: Transaction[]
+    currency: string
 }
 
 export default function TransactionTable({
     transactions,
+    currency,
 }: Props) {
     const table = useTable({
         features: transactionFeatures,
-        columns: transactionColumns,
+        columns: transactionColumns(currency),
         data: transactions,
     })
 

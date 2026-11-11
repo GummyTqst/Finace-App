@@ -35,6 +35,11 @@ export async function POST(request: NextRequest) {
     }
 
     const account = await prisma.$transaction(async (tx) => {
+        await tx.user.update({
+            where: { id: user.id },
+            data: { currency: parsed.data.account.currency.toUpperCase() },
+        });
+
         const createdAccount = await tx.account.create({
             data: {
                 userId: user.id,

@@ -67,6 +67,7 @@ export async function GET(request: NextRequest) {
   ]);
 
   return NextResponse.json({
+    currency: user.currency ?? "EUR",
     total,
     page,
     transactions: transactions.map((t) => ({

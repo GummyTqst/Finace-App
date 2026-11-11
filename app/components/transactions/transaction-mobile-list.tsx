@@ -5,10 +5,12 @@ import { Transaction } from "./types"
 
 type Props = {
     transactions: Transaction[]
+    currency: string
 }
 
 export default function TransactionMobileList({
     transactions,
+    currency,
 }: Props) {
     return (
         <div className="divide-y divide-grey-100 lg:hidden">
@@ -38,7 +40,7 @@ export default function TransactionMobileList({
                                 }`}
                             >
                                 {isIncome ? "+" : "-"}
-                                {formatCurrency(transaction.amount)}
+                                {formatCurrency(transaction.amount, currency)}
                             </p>
 
                             <p className="max-w-24 truncate text-xs text-grey-500">{transaction.account}</p>

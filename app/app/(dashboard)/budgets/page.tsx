@@ -27,6 +27,7 @@ type BudgetRow = {
 };
 
 type BudgetsData = {
+  currency: string;
   month: number;
   year: number;
   totalBudgeted: number;
@@ -64,9 +65,10 @@ export default async function BudgetsPage() {
               budgets={data.budgets}
               totalSpent={data.totalSpent}
               totalBudgeted={data.totalBudgeted}
+              currency={data.currency}
             />
           </div>
-          <SpendingSummary budgets={data.budgets} />
+          <SpendingSummary budgets={data.budgets} currency={data.currency} />
         </section>
 
         <div className="space-y-400">
@@ -80,6 +82,7 @@ export default async function BudgetsPage() {
               key={budget.id}
               budget={budget}
               menu={<BudgetMenu budget={budget} />}
+              currency={data.currency}
             />
           ))}
         </div>

@@ -76,9 +76,9 @@ export default function TransactionPage({
                         </div>
                     ) : (
                         <>
-                            <TransactionTable transactions={data.transactions} />
+                            <TransactionTable transactions={data.transactions} currency={data.currency} />
 
-                            <TransactionMobileList transactions={data.transactions} />
+                            <TransactionMobileList transactions={data.transactions} currency={data.currency} />
 
                             <TransactionPagination page={data.page} total={data.total} pageSize={10} />
                         </>
