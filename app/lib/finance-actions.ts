@@ -7,6 +7,12 @@ function value(form: FormData, key: string) {
   return String(form.get(key) ?? "").trim();
 }
 
+function dueDay(form: FormData) {
+  const date = value(form, "dueDate");
+  if (date) return String(Number(date.slice(8, 10)));
+  return value(form, "dueDay");
+}
+
 // Transaction section
 
 export type TransactionActionState = {
@@ -152,7 +158,7 @@ export async function createBill(form: FormData) {
     body: JSON.stringify({
       name: value(form, "name"),
       amount: value(form, "amount"),
-      dueDay: value(form, "dueDay"),
+      dueDay: dueDay(form),
       accountId: value(form, "accountId"),
       categoryId: value(form, "categoryId") || undefined,
       autoCreate: form.get("autoCreate") === "on",
@@ -169,7 +175,7 @@ export async function editBill(form: FormData) {
       id: value(form, "id"),
       name: value(form, "name"),
       amount: value(form, "amount"),
-      dueDay: value(form, "dueDay"),
+      dueDay: dueDay(form),
       accountId: value(form, "accountId"),
       categoryId: value(form, "categoryId") || undefined,
       autoCreate: form.get("autoCreate") === "on",

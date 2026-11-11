@@ -1,5 +1,6 @@
 "use client";
 
+import { useFormStatus } from "react-dom";
 import { useState } from "react";
 
 import {
@@ -41,13 +42,34 @@ type BillFormProps = {
   onCancel?: () => void;
 };
 
+function SubmitButton({ editing }: { editing: boolean }) {
+  const { pending } = useFormStatus();
+  return (
+    <button className="button" type="submit" disabled={pending}>
+      {pending ? "Saving..." : editing ? "Save changes" : "Add bill"}
+    </button>
+  );
+}
+
+function dateForDueDay(day?: number) {
+  if (!day) return "";
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const maxDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  const date = String(Math.min(day, maxDay)).padStart(2, "0");
+  return `${now.getFullYear()}-${month}-${date}`;
+}
+
 function BillForm({ action, bill, accounts, categories, onCancel }: BillFormProps) {
   return (
-    <form action={action} className="grid gap-200 sm:grid-cols-2 lg:grid-cols-5">
+    <form action={async (formData) => { await action(formData); onCancel?.(); }} className="grid gap-200 sm:grid-cols-2 lg:grid-cols-5">
       {bill && <input type="hidden" name="id" value={bill.id} />}
       <input name="name" required defaultValue={bill?.name} placeholder="Bill name" className="field" />
       <input name="amount" required type="number" min="0.01" step="0.01" defaultValue={bill?.amount} placeholder="Amount" className="field" />
-      <input name="dueDay" required type="number" min="1" max="31" defaultValue={bill?.dueDay} placeholder="Due day" className="field" />
+      <label className="block">
+        <span className="sr-only">First due date</span>
+        <input name="dueDate" required type="date" defaultValue={dateForDueDay(bill?.dueDay)} className="field" />
+      </label>
       <select name="accountId" required defaultValue={bill?.accountId ?? ""} className="field">
         <option value="" disabled>Select account</option>
         {accounts.map((account) => <option key={account.id} value={account.id}>{account.name}</option>)}
@@ -61,7 +83,7 @@ function BillForm({ action, bill, accounts, categories, onCancel }: BillFormProp
         Automatically create an expense transaction when this bill is due
       </label>
       <div className="flex gap-200 sm:col-span-2 lg:col-span-5">
-        <button className="button" type="submit">{bill ? "Save changes" : "Add bill"}</button>
+        <SubmitButton editing={Boolean(bill)} />
         {onCancel && <button className="button-secondary" type="button" onClick={onCancel}>Cancel</button>}
       </div>
     </form>
@@ -149,7 +171,7 @@ export default function RecurringBillsPage({ bills, currency, accounts, categori
       {showAddForm && (
         <section className="rounded-2xl bg-white p-400 shadow-sm">
           <h2 className="text-lg font-bold text-grey-900">Add recurring bill</h2>
-          <div className="mt-300"><BillForm action={createBill} accounts={accounts} categories={categories} /></div>
+          <div className="mt-300"><BillForm action={createBill} accounts={accounts} categories={categories} onCancel={() => setShowAddForm(false)} /></div>
         </section>
       )}
 
