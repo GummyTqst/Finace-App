@@ -9,7 +9,7 @@ function isAuthorized(request: NextRequest) {
   return Boolean(secret && authorization === `Bearer ${secret}`);
 }
 
-export async function POST(request: NextRequest) {
+async function processBills(request: NextRequest) {
   if (!isAuthorized(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -71,4 +71,12 @@ export async function POST(request: NextRequest) {
   }
 
   return NextResponse.json({ processed, skipped });
+}
+
+export async function GET(request: NextRequest) {
+  return processBills(request);
+}
+
+export async function POST(request: NextRequest) {
+  return processBills(request);
 }
