@@ -23,6 +23,7 @@ type Bill = {
   active: boolean;
   lastPaidDate?: string | null;
   nextDueDate?: string | null;
+  autoCreate: boolean;
 };
 
 type Props = {
@@ -55,6 +56,10 @@ function BillForm({ action, bill, accounts, categories, onCancel }: BillFormProp
         <option value="">No category</option>
         {categories.map((category) => <option key={category.id} value={category.id}>{category.name}</option>)}
       </select>
+      <label className="flex items-center gap-200 rounded-lg border border-beige-500 px-300 py-250 text-sm text-grey-900 sm:col-span-2 lg:col-span-5">
+        <input type="checkbox" name="autoCreate" defaultChecked={bill?.autoCreate ?? false} />
+        Automatically create an expense transaction when this bill is due
+      </label>
       <div className="flex gap-200 sm:col-span-2 lg:col-span-5">
         <button className="button" type="submit">{bill ? "Save changes" : "Add bill"}</button>
         {onCancel && <button className="button-secondary" type="button" onClick={onCancel}>Cancel</button>}

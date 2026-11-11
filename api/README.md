@@ -16,6 +16,10 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+### Recurring bill automation
+
+Bills with automatic transactions enabled are processed by `POST /api/v1/bills/process` once per day through the Vercel cron configuration. Set `CRON_SECRET` in the API environment so the endpoint only accepts authenticated scheduler requests.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

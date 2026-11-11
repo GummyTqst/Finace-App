@@ -155,6 +155,7 @@ export async function createBill(form: FormData) {
       dueDay: value(form, "dueDay"),
       accountId: value(form, "accountId"),
       categoryId: value(form, "categoryId") || undefined,
+      autoCreate: form.get("autoCreate") === "on",
     }),
   });
   revalidatePath("/bills");
@@ -171,6 +172,7 @@ export async function editBill(form: FormData) {
       dueDay: value(form, "dueDay"),
       accountId: value(form, "accountId"),
       categoryId: value(form, "categoryId") || undefined,
+      autoCreate: form.get("autoCreate") === "on",
     }),
   });
   revalidatePath("/bills");

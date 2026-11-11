@@ -5,6 +5,17 @@ type BillSummaryInput = {
   lastPaidDate: Date | null;
 };
 
+export function nextDueDate(dueDay: number, from = new Date()) {
+  const year = from.getFullYear();
+  const month = from.getMonth();
+  const today = from.getDate();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const day = Math.min(dueDay, daysInMonth);
+
+  if (day >= today) return new Date(year, month, day);
+  return new Date(year, month + 1, Math.min(dueDay, new Date(year, month + 2, 0).getDate()));
+}
+
 export function isPaidThisMonth(lastPaidDate: Date | null, now = new Date()) {
   return Boolean(
     lastPaidDate &&

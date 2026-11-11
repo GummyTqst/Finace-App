@@ -47,6 +47,7 @@ export type RecurringBillMinAggregateOutputType = {
   accountId: string | null
   categoryId: string | null
   active: boolean | null
+  autoCreate: boolean | null
   lastPaidDate: Date | null
   nextDueDate: Date | null
   createdAt: Date | null
@@ -64,6 +65,7 @@ export type RecurringBillMaxAggregateOutputType = {
   accountId: string | null
   categoryId: string | null
   active: boolean | null
+  autoCreate: boolean | null
   lastPaidDate: Date | null
   nextDueDate: Date | null
   createdAt: Date | null
@@ -81,6 +83,7 @@ export type RecurringBillCountAggregateOutputType = {
   accountId: number
   categoryId: number
   active: number
+  autoCreate: number
   lastPaidDate: number
   nextDueDate: number
   createdAt: number
@@ -110,6 +113,7 @@ export type RecurringBillMinAggregateInputType = {
   accountId?: true
   categoryId?: true
   active?: true
+  autoCreate?: true
   lastPaidDate?: true
   nextDueDate?: true
   createdAt?: true
@@ -127,6 +131,7 @@ export type RecurringBillMaxAggregateInputType = {
   accountId?: true
   categoryId?: true
   active?: true
+  autoCreate?: true
   lastPaidDate?: true
   nextDueDate?: true
   createdAt?: true
@@ -144,6 +149,7 @@ export type RecurringBillCountAggregateInputType = {
   accountId?: true
   categoryId?: true
   active?: true
+  autoCreate?: true
   lastPaidDate?: true
   nextDueDate?: true
   createdAt?: true
@@ -248,6 +254,7 @@ export type RecurringBillGroupByOutputType = {
   accountId: string | null
   categoryId: string | null
   active: boolean
+  autoCreate: boolean
   lastPaidDate: Date | null
   nextDueDate: Date | null
   createdAt: Date
@@ -288,6 +295,7 @@ export type RecurringBillWhereInput = {
   accountId?: Prisma.StringNullableFilter<"RecurringBill"> | string | null
   categoryId?: Prisma.StringNullableFilter<"RecurringBill"> | string | null
   active?: Prisma.BoolFilter<"RecurringBill"> | boolean
+  autoCreate?: Prisma.BoolFilter<"RecurringBill"> | boolean
   lastPaidDate?: Prisma.DateTimeNullableFilter<"RecurringBill"> | Date | string | null
   nextDueDate?: Prisma.DateTimeNullableFilter<"RecurringBill"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"RecurringBill"> | Date | string
@@ -308,6 +316,7 @@ export type RecurringBillOrderByWithRelationInput = {
   accountId?: Prisma.SortOrderInput | Prisma.SortOrder
   categoryId?: Prisma.SortOrderInput | Prisma.SortOrder
   active?: Prisma.SortOrder
+  autoCreate?: Prisma.SortOrder
   lastPaidDate?: Prisma.SortOrderInput | Prisma.SortOrder
   nextDueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -331,6 +340,7 @@ export type RecurringBillWhereUniqueInput = Prisma.AtLeast<{
   accountId?: Prisma.StringNullableFilter<"RecurringBill"> | string | null
   categoryId?: Prisma.StringNullableFilter<"RecurringBill"> | string | null
   active?: Prisma.BoolFilter<"RecurringBill"> | boolean
+  autoCreate?: Prisma.BoolFilter<"RecurringBill"> | boolean
   lastPaidDate?: Prisma.DateTimeNullableFilter<"RecurringBill"> | Date | string | null
   nextDueDate?: Prisma.DateTimeNullableFilter<"RecurringBill"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"RecurringBill"> | Date | string
@@ -351,6 +361,7 @@ export type RecurringBillOrderByWithAggregationInput = {
   accountId?: Prisma.SortOrderInput | Prisma.SortOrder
   categoryId?: Prisma.SortOrderInput | Prisma.SortOrder
   active?: Prisma.SortOrder
+  autoCreate?: Prisma.SortOrder
   lastPaidDate?: Prisma.SortOrderInput | Prisma.SortOrder
   nextDueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -376,6 +387,7 @@ export type RecurringBillScalarWhereWithAggregatesInput = {
   accountId?: Prisma.StringNullableWithAggregatesFilter<"RecurringBill"> | string | null
   categoryId?: Prisma.StringNullableWithAggregatesFilter<"RecurringBill"> | string | null
   active?: Prisma.BoolWithAggregatesFilter<"RecurringBill"> | boolean
+  autoCreate?: Prisma.BoolWithAggregatesFilter<"RecurringBill"> | boolean
   lastPaidDate?: Prisma.DateTimeNullableWithAggregatesFilter<"RecurringBill"> | Date | string | null
   nextDueDate?: Prisma.DateTimeNullableWithAggregatesFilter<"RecurringBill"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"RecurringBill"> | Date | string
@@ -390,6 +402,7 @@ export type RecurringBillCreateInput = {
   category?: string | null
   account?: string | null
   active?: boolean
+  autoCreate?: boolean
   lastPaidDate?: Date | string | null
   nextDueDate?: Date | string | null
   createdAt?: Date | string
@@ -410,6 +423,7 @@ export type RecurringBillUncheckedCreateInput = {
   accountId?: string | null
   categoryId?: string | null
   active?: boolean
+  autoCreate?: boolean
   lastPaidDate?: Date | string | null
   nextDueDate?: Date | string | null
   createdAt?: Date | string
@@ -424,6 +438,7 @@ export type RecurringBillUpdateInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   account?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastPaidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -444,6 +459,7 @@ export type RecurringBillUncheckedUpdateInput = {
   accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastPaidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -461,6 +477,7 @@ export type RecurringBillCreateManyInput = {
   accountId?: string | null
   categoryId?: string | null
   active?: boolean
+  autoCreate?: boolean
   lastPaidDate?: Date | string | null
   nextDueDate?: Date | string | null
   createdAt?: Date | string
@@ -475,6 +492,7 @@ export type RecurringBillUpdateManyMutationInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   account?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastPaidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -492,6 +510,7 @@ export type RecurringBillUncheckedUpdateManyInput = {
   accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastPaidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -519,6 +538,7 @@ export type RecurringBillCountOrderByAggregateInput = {
   accountId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   active?: Prisma.SortOrder
+  autoCreate?: Prisma.SortOrder
   lastPaidDate?: Prisma.SortOrder
   nextDueDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -541,6 +561,7 @@ export type RecurringBillMaxOrderByAggregateInput = {
   accountId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   active?: Prisma.SortOrder
+  autoCreate?: Prisma.SortOrder
   lastPaidDate?: Prisma.SortOrder
   nextDueDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -558,6 +579,7 @@ export type RecurringBillMinOrderByAggregateInput = {
   accountId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   active?: Prisma.SortOrder
+  autoCreate?: Prisma.SortOrder
   lastPaidDate?: Prisma.SortOrder
   nextDueDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -703,6 +725,7 @@ export type RecurringBillCreateWithoutUserInput = {
   category?: string | null
   account?: string | null
   active?: boolean
+  autoCreate?: boolean
   lastPaidDate?: Date | string | null
   nextDueDate?: Date | string | null
   createdAt?: Date | string
@@ -721,6 +744,7 @@ export type RecurringBillUncheckedCreateWithoutUserInput = {
   accountId?: string | null
   categoryId?: string | null
   active?: boolean
+  autoCreate?: boolean
   lastPaidDate?: Date | string | null
   nextDueDate?: Date | string | null
   createdAt?: Date | string
@@ -767,6 +791,7 @@ export type RecurringBillScalarWhereInput = {
   accountId?: Prisma.StringNullableFilter<"RecurringBill"> | string | null
   categoryId?: Prisma.StringNullableFilter<"RecurringBill"> | string | null
   active?: Prisma.BoolFilter<"RecurringBill"> | boolean
+  autoCreate?: Prisma.BoolFilter<"RecurringBill"> | boolean
   lastPaidDate?: Prisma.DateTimeNullableFilter<"RecurringBill"> | Date | string | null
   nextDueDate?: Prisma.DateTimeNullableFilter<"RecurringBill"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"RecurringBill"> | Date | string
@@ -781,6 +806,7 @@ export type RecurringBillCreateWithoutAccountRefInput = {
   category?: string | null
   account?: string | null
   active?: boolean
+  autoCreate?: boolean
   lastPaidDate?: Date | string | null
   nextDueDate?: Date | string | null
   createdAt?: Date | string
@@ -799,6 +825,7 @@ export type RecurringBillUncheckedCreateWithoutAccountRefInput = {
   account?: string | null
   categoryId?: string | null
   active?: boolean
+  autoCreate?: boolean
   lastPaidDate?: Date | string | null
   nextDueDate?: Date | string | null
   createdAt?: Date | string
@@ -839,6 +866,7 @@ export type RecurringBillCreateWithoutCategoryRefInput = {
   category?: string | null
   account?: string | null
   active?: boolean
+  autoCreate?: boolean
   lastPaidDate?: Date | string | null
   nextDueDate?: Date | string | null
   createdAt?: Date | string
@@ -857,6 +885,7 @@ export type RecurringBillUncheckedCreateWithoutCategoryRefInput = {
   account?: string | null
   accountId?: string | null
   active?: boolean
+  autoCreate?: boolean
   lastPaidDate?: Date | string | null
   nextDueDate?: Date | string | null
   createdAt?: Date | string
@@ -899,6 +928,7 @@ export type RecurringBillCreateManyUserInput = {
   accountId?: string | null
   categoryId?: string | null
   active?: boolean
+  autoCreate?: boolean
   lastPaidDate?: Date | string | null
   nextDueDate?: Date | string | null
   createdAt?: Date | string
@@ -913,6 +943,7 @@ export type RecurringBillUpdateWithoutUserInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   account?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastPaidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -931,6 +962,7 @@ export type RecurringBillUncheckedUpdateWithoutUserInput = {
   accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastPaidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -947,6 +979,7 @@ export type RecurringBillUncheckedUpdateManyWithoutUserInput = {
   accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastPaidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -963,6 +996,7 @@ export type RecurringBillCreateManyAccountRefInput = {
   account?: string | null
   categoryId?: string | null
   active?: boolean
+  autoCreate?: boolean
   lastPaidDate?: Date | string | null
   nextDueDate?: Date | string | null
   createdAt?: Date | string
@@ -977,6 +1011,7 @@ export type RecurringBillUpdateWithoutAccountRefInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   account?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastPaidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -995,6 +1030,7 @@ export type RecurringBillUncheckedUpdateWithoutAccountRefInput = {
   account?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastPaidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1011,6 +1047,7 @@ export type RecurringBillUncheckedUpdateManyWithoutAccountRefInput = {
   account?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastPaidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1027,6 +1064,7 @@ export type RecurringBillCreateManyCategoryRefInput = {
   account?: string | null
   accountId?: string | null
   active?: boolean
+  autoCreate?: boolean
   lastPaidDate?: Date | string | null
   nextDueDate?: Date | string | null
   createdAt?: Date | string
@@ -1041,6 +1079,7 @@ export type RecurringBillUpdateWithoutCategoryRefInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   account?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastPaidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1059,6 +1098,7 @@ export type RecurringBillUncheckedUpdateWithoutCategoryRefInput = {
   account?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastPaidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1075,6 +1115,7 @@ export type RecurringBillUncheckedUpdateManyWithoutCategoryRefInput = {
   account?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  autoCreate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lastPaidDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   nextDueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1094,6 +1135,7 @@ export type RecurringBillSelect<ExtArgs extends runtime.Types.Extensions.Interna
   accountId?: boolean
   categoryId?: boolean
   active?: boolean
+  autoCreate?: boolean
   lastPaidDate?: boolean
   nextDueDate?: boolean
   createdAt?: boolean
@@ -1114,6 +1156,7 @@ export type RecurringBillSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   accountId?: boolean
   categoryId?: boolean
   active?: boolean
+  autoCreate?: boolean
   lastPaidDate?: boolean
   nextDueDate?: boolean
   createdAt?: boolean
@@ -1134,6 +1177,7 @@ export type RecurringBillSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   accountId?: boolean
   categoryId?: boolean
   active?: boolean
+  autoCreate?: boolean
   lastPaidDate?: boolean
   nextDueDate?: boolean
   createdAt?: boolean
@@ -1154,13 +1198,14 @@ export type RecurringBillSelectScalar = {
   accountId?: boolean
   categoryId?: boolean
   active?: boolean
+  autoCreate?: boolean
   lastPaidDate?: boolean
   nextDueDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type RecurringBillOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "amount" | "dueDay" | "category" | "account" | "accountId" | "categoryId" | "active" | "lastPaidDate" | "nextDueDate" | "createdAt" | "updatedAt", ExtArgs["result"]["recurringBill"]>
+export type RecurringBillOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "amount" | "dueDay" | "category" | "account" | "accountId" | "categoryId" | "active" | "autoCreate" | "lastPaidDate" | "nextDueDate" | "createdAt" | "updatedAt", ExtArgs["result"]["recurringBill"]>
 export type RecurringBillInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   accountRef?: boolean | Prisma.RecurringBill$accountRefArgs<ExtArgs>
@@ -1195,6 +1240,7 @@ export type $RecurringBillPayload<ExtArgs extends runtime.Types.Extensions.Inter
     accountId: string | null
     categoryId: string | null
     active: boolean
+    autoCreate: boolean
     lastPaidDate: Date | null
     nextDueDate: Date | null
     createdAt: Date
@@ -1635,6 +1681,7 @@ export interface RecurringBillFieldRefs {
   readonly accountId: Prisma.FieldRef<"RecurringBill", 'String'>
   readonly categoryId: Prisma.FieldRef<"RecurringBill", 'String'>
   readonly active: Prisma.FieldRef<"RecurringBill", 'Boolean'>
+  readonly autoCreate: Prisma.FieldRef<"RecurringBill", 'Boolean'>
   readonly lastPaidDate: Prisma.FieldRef<"RecurringBill", 'DateTime'>
   readonly nextDueDate: Prisma.FieldRef<"RecurringBill", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"RecurringBill", 'DateTime'>

@@ -9,6 +9,11 @@ type Bill = {
   category?: string | null;
   account?: string | null;
   active: boolean;
+  autoCreate: boolean;
+  accountId?: string | null;
+  categoryId?: string | null;
+  lastPaidDate?: string | null;
+  nextDueDate?: string | null;
 };
 export default async function BillsPage() {
   let data: { currency: string; bills: Bill[] };

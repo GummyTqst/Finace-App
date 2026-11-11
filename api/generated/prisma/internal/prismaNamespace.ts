@@ -1245,6 +1245,7 @@ export const RecurringBillScalarFieldEnum = {
   accountId: 'accountId',
   categoryId: 'categoryId',
   active: 'active',
+  autoCreate: 'autoCreate',
   lastPaidDate: 'lastPaidDate',
   nextDueDate: 'nextDueDate',
   createdAt: 'createdAt',

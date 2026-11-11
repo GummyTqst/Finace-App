@@ -2,6 +2,7 @@ import { requireUser } from "@/config/auth";
 import prisma from "@/config/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import z from "zod";
+import { nextDueDate } from "@/lib/recurring-bills";
 
 const billSchema = z.object({
   name: z.string().min(1).max(80),
@@ -11,20 +12,10 @@ const billSchema = z.object({
   account: z.string().max(60).optional(),
   accountId: z.string().min(1),
   categoryId: z.string().min(1).optional(),
+  autoCreate: z.coerce.boolean().optional().default(false),
 });
 
 const billEditSchema = billSchema.extend({ id: z.string().min(1) });
-
-function nextDueDate(dueDay: number, from = new Date()) {
-  const year = from.getFullYear();
-  const month = from.getMonth();
-  const today = from.getDate();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const day = Math.min(dueDay, daysInMonth);
-
-  if (day >= today) return new Date(year, month, day);
-  return new Date(year, month + 1, Math.min(dueDay, new Date(year, month + 2, 0).getDate()));
-}
 
 async function validateLinks(userId: string, accountId: string, categoryId?: string) {
   const account = await prisma.account.findFirst({ where: { id: accountId, userId } });
@@ -107,6 +98,7 @@ export async function PATCH(request: NextRequest) {
         account: links.account.name,
         accountId: parsed.data.accountId,
         categoryId: parsed.data.categoryId || null,
+        autoCreate: parsed.data.autoCreate,
         nextDueDate: nextDueDate(parsed.data.dueDay),
       },
     });

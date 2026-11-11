@@ -134,6 +134,7 @@ model RecurringBill {
   accountId   String?
   categoryId  String?
   active      Boolean  @default(true)
+  autoCreate  Boolean  @default(false)
   lastPaidDate DateTime?
   nextDueDate DateTime?
   createdAt   DateTime @default(now())
