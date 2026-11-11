@@ -97,6 +97,13 @@ function daysUntilDue(day: number) {
   return day >= currentDay ? day - currentDay : daysInMonth - currentDay + day;
 }
 
+function isPaidThisMonth(bill: Bill) {
+  if (!bill.lastPaidDate) return false;
+  const paidAt = new Date(bill.lastPaidDate);
+  const now = new Date();
+  return paidAt.getFullYear() === now.getFullYear() && paidAt.getMonth() === now.getMonth();
+}
+
 export default function RecurringBillsPage({ bills, currency, accounts, categories }: Props) {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("latest");
@@ -104,7 +111,11 @@ export default function RecurringBillsPage({ bills, currency, accounts, categori
 
   const activeBills = bills.filter((bill) => bill.active);
   const total = activeBills.reduce((sum, bill) => sum + bill.amount, 0);
-  const dueSoon = activeBills.filter((bill) => daysUntilDue(bill.dueDay) <= 7);
+  const paidBills = activeBills.filter(isPaidThisMonth);
+  const upcomingBills = activeBills.filter((bill) => !isPaidThisMonth(bill));
+  const dueSoon = upcomingBills.filter((bill) => daysUntilDue(bill.dueDay) <= 7);
+  const paidTotal = paidBills.reduce((sum, bill) => sum + bill.amount, 0);
+  const upcomingTotal = upcomingBills.reduce((sum, bill) => sum + bill.amount, 0);
   const dueSoonTotal = dueSoon.reduce((sum, bill) => sum + bill.amount, 0);
 
   const visibleBills = [...bills.filter((bill) =>
@@ -156,8 +167,12 @@ export default function RecurringBillsPage({ bills, currency, accounts, categori
                 <dd className="text-sm font-bold text-grey-900">{activeBills.length} ({formatCurrency(total, currency)})</dd>
               </div>
               <div className="flex items-center justify-between gap-300 py-250">
-                <dt className="text-sm text-grey-500">Total Upcoming</dt>
-                <dd className="text-sm font-bold text-grey-900">{activeBills.length} ({formatCurrency(total, currency)})</dd>
+                <dt className="text-sm text-grey-500">Upcoming</dt>
+                <dd className="text-sm font-bold text-grey-900">{upcomingBills.length} ({formatCurrency(upcomingTotal, currency)})</dd>
+              </div>
+              <div className="flex items-center justify-between gap-300 py-250">
+                <dt className="text-sm text-green">Paid this month</dt>
+                <dd className="text-sm font-bold text-green">{paidBills.length} ({formatCurrency(paidTotal, currency)})</dd>
               </div>
               <div className="flex items-center justify-between gap-300 py-250">
                 <dt className="text-sm text-red-600">Due Soon</dt>
@@ -194,7 +209,7 @@ export default function RecurringBillsPage({ bills, currency, accounts, categori
             {visibleBills.length === 0 && <li className="px-200 py-700 text-center text-sm text-grey-500">No recurring bills found.</li>}
             {visibleBills.map((bill, index) => {
               const isDueSoon = daysUntilDue(bill.dueDay) <= 7;
-              const paidThisMonth = Boolean(bill.lastPaidDate && new Date(bill.lastPaidDate).getMonth() === new Date().getMonth() && new Date(bill.lastPaidDate).getFullYear() === new Date().getFullYear());
+              const paidThisMonth = isPaidThisMonth(bill);
               return (
                 <li key={bill.id} className={`px-200 py-350 ${!bill.active ? "opacity-55" : ""}`}>
                   <div className="grid grid-cols-[minmax(0,1fr)_8rem_7rem] items-center gap-300 sm:grid-cols-[minmax(0,1fr)_10rem_7rem]">
@@ -209,7 +224,7 @@ export default function RecurringBillsPage({ bills, currency, accounts, categori
                     {paidThisMonth ? "Paid" : `Monthly-${ordinal(bill.dueDay)}`}
                     <span className={`grid h-4 w-4 place-items-center rounded-full text-[10px] text-white ${!bill.active ? "bg-grey-500" : paidThisMonth || !isDueSoon ? "bg-green" : "bg-red-600"}`}>{!bill.active ? "–" : paidThisMonth || !isDueSoon ? "✓" : "!"}</span>
                   </span>
-                  <span className={`text-right text-sm font-bold ${isDueSoon ? "text-red-600" : "text-grey-900"}`}>{formatCurrency(bill.amount, currency)}</span>
+                  <span className={`text-right text-sm font-bold ${isDueSoon && !paidThisMonth ? "text-red-600" : "text-grey-900"}`}>{formatCurrency(bill.amount, currency)}</span>
                   </div>
                   <div className="mt-250 flex flex-wrap items-center gap-200 pl-11 text-xs">
                     {bill.active && (bill.accountId ? (
