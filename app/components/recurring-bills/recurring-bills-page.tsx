@@ -212,7 +212,18 @@ export default function RecurringBillsPage({ bills, currency, accounts, categori
                   <span className={`text-right text-sm font-bold ${isDueSoon ? "text-red-600" : "text-grey-900"}`}>{formatCurrency(bill.amount, currency)}</span>
                   </div>
                   <div className="mt-250 flex flex-wrap items-center gap-200 pl-11 text-xs">
-                    {bill.active && <form action={markBillPaid}><input type="hidden" name="id" value={bill.id} /><button type="submit" disabled={paidThisMonth} className="font-bold text-green disabled:cursor-not-allowed disabled:text-grey-500">{paidThisMonth ? "Paid this month" : "Mark as paid"}</button></form>}
+                    {bill.active && (bill.accountId ? (
+                      <form action={markBillPaid}>
+                        <input type="hidden" name="id" value={bill.id} />
+                        <button type="submit" disabled={paidThisMonth} className="font-bold text-green disabled:cursor-not-allowed disabled:text-grey-500">
+                          {paidThisMonth ? "Paid this month" : "Mark as paid"}
+                        </button>
+                      </form>
+                    ) : (
+                      <button type="button" onClick={() => setEditingBillId(bill.id)} className="font-bold text-red-600 hover:text-red-800">
+                        Link account to pay
+                      </button>
+                    ))}
                     <button type="button" onClick={() => setEditingBillId(editingBillId === bill.id ? null : bill.id)} className="text-grey-500 hover:text-grey-900">Edit</button>
                     <form action={toggleBill}><input type="hidden" name="id" value={bill.id} /><input type="hidden" name="active" value={String(!bill.active)} /><button type="submit" className="text-grey-500 hover:text-grey-900">{bill.active ? "Pause" : "Resume"}</button></form>
                     <form action={deleteBill} onSubmit={(event) => { if (!window.confirm(`Delete ${bill.name}?`)) event.preventDefault(); }}><input type="hidden" name="id" value={bill.id} /><button type="submit" className="text-red-600 hover:text-red-800">Delete</button></form>
