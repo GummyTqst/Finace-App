@@ -12,10 +12,19 @@ type Bill = {
 };
 export default async function BillsPage() {
   let data: { currency: string; bills: Bill[] };
+  let accounts: { id: string; name: string }[] = [];
+  let categories: { id: string; name: string }[] = [];
   try {
-    data = await apiFetch("/bills");
+    const [billsData, accountsData, categoriesData] = await Promise.all([
+      apiFetch<{ currency: string; bills: Bill[] }>("/bills"),
+      apiFetch<{ accounts: { id: string; name: string }[] }>("/accounts"),
+      apiFetch<{ categories: { id: string; name: string }[] }>("/categories"),
+    ]);
+    data = billsData;
+    accounts = accountsData.accounts;
+    categories = categoriesData.categories;
   } catch {
     redirect("/login");
   }
-  return <RecurringBillsPage bills={data.bills} currency={data.currency} />;
+  return <RecurringBillsPage bills={data.bills} currency={data.currency} accounts={accounts} categories={categories} />;
 }

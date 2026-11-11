@@ -1242,7 +1242,11 @@ export const RecurringBillScalarFieldEnum = {
   dueDay: 'dueDay',
   category: 'category',
   account: 'account',
+  accountId: 'accountId',
+  categoryId: 'categoryId',
   active: 'active',
+  lastPaidDate: 'lastPaidDate',
+  nextDueDate: 'nextDueDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

@@ -153,9 +153,55 @@ export async function createBill(form: FormData) {
       name: value(form, "name"),
       amount: value(form, "amount"),
       dueDay: value(form, "dueDay"),
-      category: value(form, "category") || undefined,
-      account: value(form, "account") || undefined,
+      accountId: value(form, "accountId"),
+      categoryId: value(form, "categoryId") || undefined,
     }),
+  });
+  revalidatePath("/bills");
+}
+
+export async function editBill(form: FormData) {
+  await apiFetch("/bills", {
+    method: "PATCH",
+    body: JSON.stringify({
+      action: "edit",
+      id: value(form, "id"),
+      name: value(form, "name"),
+      amount: value(form, "amount"),
+      dueDay: value(form, "dueDay"),
+      accountId: value(form, "accountId"),
+      categoryId: value(form, "categoryId") || undefined,
+    }),
+  });
+  revalidatePath("/bills");
+}
+
+export async function toggleBill(form: FormData) {
+  await apiFetch("/bills", {
+    method: "PATCH",
+    body: JSON.stringify({
+      action: "toggle",
+      id: value(form, "id"),
+      active: value(form, "active") === "true",
+    }),
+  });
+  revalidatePath("/bills");
+}
+
+export async function markBillPaid(form: FormData) {
+  await apiFetch("/bills", {
+    method: "PATCH",
+    body: JSON.stringify({ action: "pay", id: value(form, "id") }),
+  });
+  revalidatePath("/bills");
+  revalidatePath("/transactions");
+  revalidatePath("/");
+}
+
+export async function deleteBill(form: FormData) {
+  await apiFetch("/bills", {
+    method: "DELETE",
+    body: JSON.stringify({ id: value(form, "id") }),
   });
   revalidatePath("/bills");
 }

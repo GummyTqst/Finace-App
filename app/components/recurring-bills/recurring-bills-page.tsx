@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 
-import { createBill } from "@/lib/finance-actions";
+import {
+  createBill,
+  deleteBill,
+  editBill,
+  markBillPaid,
+  toggleBill,
+} from "@/lib/finance-actions";
 import { formatCurrency } from "@/lib/format";
 
 type Bill = {
@@ -12,13 +18,50 @@ type Bill = {
   dueDay: number;
   category?: string | null;
   account?: string | null;
+  accountId?: string | null;
+  categoryId?: string | null;
   active: boolean;
+  lastPaidDate?: string | null;
+  nextDueDate?: string | null;
 };
 
 type Props = {
   bills: Bill[];
   currency: string;
+  accounts: { id: string; name: string }[];
+  categories: { id: string; name: string }[];
 };
+
+type BillFormProps = {
+  action: (formData: FormData) => void | Promise<void>;
+  bill?: Bill;
+  accounts: { id: string; name: string }[];
+  categories: { id: string; name: string }[];
+  onCancel?: () => void;
+};
+
+function BillForm({ action, bill, accounts, categories, onCancel }: BillFormProps) {
+  return (
+    <form action={action} className="grid gap-200 sm:grid-cols-2 lg:grid-cols-5">
+      {bill && <input type="hidden" name="id" value={bill.id} />}
+      <input name="name" required defaultValue={bill?.name} placeholder="Bill name" className="field" />
+      <input name="amount" required type="number" min="0.01" step="0.01" defaultValue={bill?.amount} placeholder="Amount" className="field" />
+      <input name="dueDay" required type="number" min="1" max="31" defaultValue={bill?.dueDay} placeholder="Due day" className="field" />
+      <select name="accountId" required defaultValue={bill?.accountId ?? ""} className="field">
+        <option value="" disabled>Select account</option>
+        {accounts.map((account) => <option key={account.id} value={account.id}>{account.name}</option>)}
+      </select>
+      <select name="categoryId" defaultValue={bill?.categoryId ?? ""} className="field">
+        <option value="">No category</option>
+        {categories.map((category) => <option key={category.id} value={category.id}>{category.name}</option>)}
+      </select>
+      <div className="flex gap-200 sm:col-span-2 lg:col-span-5">
+        <button className="button" type="submit">{bill ? "Save changes" : "Add bill"}</button>
+        {onCancel && <button className="button-secondary" type="button" onClick={onCancel}>Cancel</button>}
+      </div>
+    </form>
+  );
+}
 
 const iconStyles = [
   "bg-[#c94736] text-white",
@@ -54,7 +97,7 @@ function daysUntilDue(day: number) {
   return day >= currentDay ? day - currentDay : daysInMonth - currentDay + day;
 }
 
-export default function RecurringBillsPage({ bills, currency }: Props) {
+export default function RecurringBillsPage({ bills, currency, accounts, categories }: Props) {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("latest");
   const [showAddForm, setShowAddForm] = useState(false);
@@ -64,7 +107,7 @@ export default function RecurringBillsPage({ bills, currency }: Props) {
   const dueSoon = activeBills.filter((bill) => daysUntilDue(bill.dueDay) <= 7);
   const dueSoonTotal = dueSoon.reduce((sum, bill) => sum + bill.amount, 0);
 
-  const visibleBills = [...activeBills.filter((bill) =>
+  const visibleBills = [...bills.filter((bill) =>
       `${bill.name} ${bill.category ?? ""} ${bill.account ?? ""}`.toLowerCase().includes(search.toLowerCase()),
     )].sort((a, b) => {
       if (sort === "amount") return b.amount - a.amount;
@@ -72,6 +115,8 @@ export default function RecurringBillsPage({ bills, currency }: Props) {
       if (sort === "earliest") return daysUntilDue(a.dueDay) - daysUntilDue(b.dueDay);
       return daysUntilDue(b.dueDay) - daysUntilDue(a.dueDay);
     });
+
+  const [editingBillId, setEditingBillId] = useState<string | null>(null);
 
   return (
     <div className="space-y-500">
@@ -88,14 +133,7 @@ export default function RecurringBillsPage({ bills, currency }: Props) {
       {showAddForm && (
         <section className="rounded-2xl bg-white p-400 shadow-sm">
           <h2 className="text-lg font-bold text-grey-900">Add recurring bill</h2>
-          <form action={createBill} className="mt-300 grid gap-200 sm:grid-cols-2 lg:grid-cols-5">
-            <input name="name" required placeholder="Bill name" className="field" />
-            <input name="amount" required type="number" min="0.01" step="0.01" placeholder="Amount" className="field" />
-            <input name="dueDay" required type="number" min="1" max="31" placeholder="Due day" className="field" />
-            <input name="category" placeholder="Category" className="field" />
-            <input name="account" placeholder="Account" className="field" />
-            <button className="button sm:col-span-2 lg:col-span-5" type="submit">Add bill</button>
-          </form>
+          <div className="mt-300"><BillForm action={createBill} accounts={accounts} categories={categories} /></div>
         </section>
       )}
 
@@ -156,8 +194,10 @@ export default function RecurringBillsPage({ bills, currency }: Props) {
             {visibleBills.length === 0 && <li className="px-200 py-700 text-center text-sm text-grey-500">No recurring bills found.</li>}
             {visibleBills.map((bill, index) => {
               const isDueSoon = daysUntilDue(bill.dueDay) <= 7;
+              const paidThisMonth = Boolean(bill.lastPaidDate && new Date(bill.lastPaidDate).getMonth() === new Date().getMonth() && new Date(bill.lastPaidDate).getFullYear() === new Date().getFullYear());
               return (
-                <li key={bill.id} className="grid grid-cols-[minmax(0,1fr)_8rem_7rem] items-center gap-300 px-200 py-350 sm:grid-cols-[minmax(0,1fr)_10rem_7rem]">
+                <li key={bill.id} className={`px-200 py-350 ${!bill.active ? "opacity-55" : ""}`}>
+                  <div className="grid grid-cols-[minmax(0,1fr)_8rem_7rem] items-center gap-300 sm:grid-cols-[minmax(0,1fr)_10rem_7rem]">
                   <div className="flex min-w-0 items-center gap-250">
                     <BillIcon index={index} />
                     <div className="min-w-0">
@@ -165,11 +205,19 @@ export default function RecurringBillsPage({ bills, currency }: Props) {
                       {(bill.category || bill.account) && <p className="truncate text-xs text-grey-500">{bill.category ?? bill.account}</p>}
                     </div>
                   </div>
-                  <span className={`flex items-center gap-150 text-xs sm:text-sm ${isDueSoon ? "text-red-600" : "text-green"}`}>
-                    Monthly-{ordinal(bill.dueDay)}
-                    <span className={`grid h-4 w-4 place-items-center rounded-full text-[10px] text-white ${isDueSoon ? "bg-red-600" : "bg-green"}`}>{isDueSoon ? "!" : "✓"}</span>
+                  <span className={`flex items-center gap-150 text-xs sm:text-sm ${!bill.active ? "text-grey-500" : isDueSoon ? "text-red-600" : "text-green"}`}>
+                    {paidThisMonth ? "Paid" : `Monthly-${ordinal(bill.dueDay)}`}
+                    <span className={`grid h-4 w-4 place-items-center rounded-full text-[10px] text-white ${!bill.active ? "bg-grey-500" : paidThisMonth || !isDueSoon ? "bg-green" : "bg-red-600"}`}>{!bill.active ? "–" : paidThisMonth || !isDueSoon ? "✓" : "!"}</span>
                   </span>
                   <span className={`text-right text-sm font-bold ${isDueSoon ? "text-red-600" : "text-grey-900"}`}>{formatCurrency(bill.amount, currency)}</span>
+                  </div>
+                  <div className="mt-250 flex flex-wrap items-center gap-200 pl-11 text-xs">
+                    {bill.active && <form action={markBillPaid}><input type="hidden" name="id" value={bill.id} /><button type="submit" disabled={paidThisMonth} className="font-bold text-green disabled:cursor-not-allowed disabled:text-grey-500">{paidThisMonth ? "Paid this month" : "Mark as paid"}</button></form>}
+                    <button type="button" onClick={() => setEditingBillId(editingBillId === bill.id ? null : bill.id)} className="text-grey-500 hover:text-grey-900">Edit</button>
+                    <form action={toggleBill}><input type="hidden" name="id" value={bill.id} /><input type="hidden" name="active" value={String(!bill.active)} /><button type="submit" className="text-grey-500 hover:text-grey-900">{bill.active ? "Pause" : "Resume"}</button></form>
+                    <form action={deleteBill} onSubmit={(event) => { if (!window.confirm(`Delete ${bill.name}?`)) event.preventDefault(); }}><input type="hidden" name="id" value={bill.id} /><button type="submit" className="text-red-600 hover:text-red-800">Delete</button></form>
+                  </div>
+                  {editingBillId === bill.id && <div className="mt-300 rounded-xl bg-beige-100 p-300"><BillForm action={editBill} bill={bill} accounts={accounts} categories={categories} onCancel={() => setEditingBillId(null)} /></div>}
                 </li>
               );
             })}
