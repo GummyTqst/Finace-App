@@ -1,6 +1,7 @@
 import { requireUser } from "@/config/auth";
 import prisma from "@/config/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import { summarizeRecurringBills } from "@/lib/recurring-bills";
 
 export async function GET(request: NextRequest) {
   const user = await requireUser(request);
@@ -13,7 +14,7 @@ export async function GET(request: NextRequest) {
   const start = new Date(year, month - 1, 1);
   const end = new Date(year, month, 1);
 
-  const [accounts, budgets, recentTransactions, monthTransactions, goals] =
+  const [accounts, budgets, recentTransactions, monthTransactions, goals, recurringBills] =
     await Promise.all([
       prisma.account.findMany({ where: { userId: user.id } }),
       prisma.budget.findMany({
@@ -34,6 +35,10 @@ export async function GET(request: NextRequest) {
         where: { userId: user.id },
         include: { contributions: true },
         orderBy: { createdAt: "desc" },
+      }),
+      prisma.recurringBill.findMany({
+        where: { userId: user.id },
+        select: { amount: true, dueDay: true, active: true, lastPaidDate: true },
       }),
     ]);
 
@@ -72,6 +77,9 @@ export async function GET(request: NextRequest) {
     totalBalance,
     income,
     expenses,
+    recurringBills: summarizeRecurringBills(
+      recurringBills.map((bill) => ({ ...bill, amount: Number(bill.amount) })),
+    ),
     potsTotal,
     potsPreview: pots.slice(0, 4),
     accounts: accounts.map((account) => ({

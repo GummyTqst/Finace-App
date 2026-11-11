@@ -1,5 +1,6 @@
 import BalanceSummaryCard from "@/components/overview/balance-summary-card";
 import { OverviewBudgetCard } from "@/components/budgets/budget-visuals";
+import RecurringBillsSummary from "@/components/overview/recurring-bills-summary";
 import { apiFetch } from "@/lib/api";
 import { formatCurrency } from "@/lib/format";
 import Link from "next/link";
@@ -33,6 +34,11 @@ type OverviewData = {
     amount: number;
     spent: number;
   }[];
+  recurringBills: {
+    paid: number;
+    upcoming: number;
+    dueSoon: number;
+  };
   recentTransactions: {
     id: string;
     description: string;
@@ -236,7 +242,7 @@ export default async function OverviewPage() {
                     <OverviewBudgetCard budgets={data.budgetSummary} currency={data.currency} />
                 </div>
                 <div>
-                    RecurringBills
+                    <RecurringBillsSummary currency={data.currency} summary={data.recurringBills} />
                 </div>
             </div>
         </div>
