@@ -257,9 +257,12 @@ export default function RecurringBillsPage({ bills, currency, accounts, categori
                       {(bill.category || bill.account) && <p className="truncate text-xs text-grey-500">{bill.category ?? bill.account}</p>}
                     </div>
                   </div>
-                  <span className={`flex items-center gap-150 text-xs sm:text-sm ${!bill.active ? "text-grey-500" : isDueSoon ? "text-red-600" : "text-green"}`}>
-                    {paidThisMonth ? "Paid" : formatNextDueDate(bill.nextDueDate, bill.dueDay)}
-                    <span className={`grid h-4 w-4 place-items-center rounded-full text-[10px] text-white ${!bill.active ? "bg-grey-500" : paidThisMonth || !isDueSoon ? "bg-green" : "bg-red-600"}`}>{!bill.active ? "–" : paidThisMonth || !isDueSoon ? "✓" : "!"}</span>
+                  <span className={`flex flex-col gap-50 text-xs sm:text-sm ${!bill.active ? "text-grey-500" : isDueSoon && !paidThisMonth ? "text-red-600" : "text-green"}`}>
+                    <span className="flex items-center gap-150">
+                      {paidThisMonth ? "Paid" : formatNextDueDate(bill.nextDueDate, bill.dueDay)}
+                      <span className={`grid h-4 w-4 place-items-center rounded-full text-[10px] text-white ${!bill.active ? "bg-grey-500" : paidThisMonth || !isDueSoon ? "bg-green" : "bg-red-600"}`}>{!bill.active ? "–" : paidThisMonth || !isDueSoon ? "✓" : "!"}</span>
+                    </span>
+                    {paidThisMonth && <span className="text-xs text-grey-500">{formatNextDueDate(bill.nextDueDate, bill.dueDay)}</span>}
                   </span>
                   <span className={`text-right text-sm font-bold ${isDueSoon && !paidThisMonth ? "text-red-600" : "text-grey-900"}`}>{formatCurrency(bill.amount, currency)}</span>
                   </div>
