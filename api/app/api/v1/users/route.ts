@@ -6,6 +6,8 @@ import bcrypt from "bcrypt";
 // import { transporter } from "@/config/nodemailer";
 // import nodemailer from "nodemailer";
 
+export const runtime = "nodejs";
+
 const schema = z.object({
   name: z.string().min(2),
   email: z.email(),
@@ -13,30 +15,33 @@ const schema = z.object({
 });
 
 export async function POST(request: Request) {
-  // const body = await request.json();
-  const { name, email, password } = await request.json();
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+  }
+
+  const { name, email, password } = (body ?? {}) as Record<string, unknown>;
 
   const validated = schema.safeParse({ name, email, password });
   if (!validated.success) {
     return NextResponse.json({ error: "Invalid input" }, { status: 400 });
   }
 
-  const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
+  try {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(validated.data.password, saltRounds);
 
-  // const hash = await argon2.hash(validated.data.password)
+    // const hash = await argon2.hash(validated.data.password)
 
-  const user = await prisma.user.create({
-    data: {
-      name,
-      email,
-      password: hashedPassword,
-    },
-  });
-
-  if (!user) {
-    return NextResponse.json({ message: "Nay" });
-  }
+    const user = await prisma.user.create({
+      data: {
+        name: validated.data.name,
+        email: validated.data.email.toLowerCase(),
+        password: hashedPassword,
+      },
+    });
 
   // const info = await transporter.sendMail({
   //   from: '"Enterprise App" <info@enterpriseapp.com>',
@@ -53,7 +58,15 @@ export async function POST(request: Request) {
   // const previewUrl = nodemailer.getTestMessageUrl(info);
   // console.log("Preview URL: %s", previewUrl);
 
-  return NextResponse.json({ message: "Yay" });
+    return NextResponse.json({ message: "Yay" }, { status: 201 });
+  } catch (error: unknown) {
+    if (typeof error === "object" && error !== null && "code" in error && error.code === "P2002") {
+      return NextResponse.json({ error: "An account with this email already exists" }, { status: 409 });
+    }
+
+    console.error("Could not create user", error);
+    return NextResponse.json({ error: "Could not create the account right now" }, { status: 500 });
+  }
 
   // try {
   //     const user = await prisma.user.create({
