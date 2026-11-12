@@ -3,8 +3,8 @@ import prisma from "@/config/prisma";
 import { NextResponse } from "next/server";
 import z from "zod";
 import bcrypt from "bcrypt";
-import { transporter } from "@/config/nodemailer";
-import nodemailer from "nodemailer";
+// import { transporter } from "@/config/nodemailer";
+// import nodemailer from "nodemailer";
 
 const schema = z.object({
   name: z.string().min(2),
@@ -38,20 +38,20 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Nay" });
   }
 
-  const info = await transporter.sendMail({
-    from: '"Enterprise App" <info@enterpriseapp.com>',
-    to: user.email,
-    subject: "Aktiver din konto",
-    text: `Klik her for at aktivere din konto: http://localhost:3300/auth/activation?activationstring=${btoa(user.id + ":" + user.activation_key)}`,
-    html: `
-            <h1>Velkommen til Enterprise</h1>
-            <p>Du skal aktivere din konto før du kan fortsætte,</p>
-            <p><a href="http://localhost:3300/auth/activation?activationstring=${btoa(user.id + ":" + user.activation_key)}">Klik her</a> for at aktivere din konto</p>
-        `,
-  });
+  // const info = await transporter.sendMail({
+  //   from: '"Enterprise App" <info@enterpriseapp.com>',
+  //   to: user.email,
+  //   subject: "Aktiver din konto",
+  //   text: `Klik her for at aktivere din konto: http://localhost:3300/auth/activation?activationstring=${btoa(user.id + ":" + user.activation_key)}`,
+  //   html: `
+  //           <h1>Velkommen til Enterprise</h1>
+  //           <p>Du skal aktivere din konto før du kan fortsætte,</p>
+  //           <p><a href="http://localhost:3300/auth/activation?activationstring=${btoa(user.id + ":" + user.activation_key)}">Klik her</a> for at aktivere din konto</p>
+  //       `,
+  // });
 
-  const previewUrl = nodemailer.getTestMessageUrl(info);
-  console.log("Preview URL: %s", previewUrl);
+  // const previewUrl = nodemailer.getTestMessageUrl(info);
+  // console.log("Preview URL: %s", previewUrl);
 
   return NextResponse.json({ message: "Yay" });
 
