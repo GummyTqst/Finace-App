@@ -20,13 +20,14 @@ export default async function signupAction(_previous: SignupState, formData: For
   const parsed = schema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? "Check your details" };
 
+  const email = parsed.data.email.toLowerCase();
   const apiBase = (process.env.API_URL ?? "http://localhost:3001/api/v1").replace(/\/api\/v1\/?$/, "");
   let response: Response;
   try {
     response = await fetch(`${apiBase}/api/v1/users`, {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ name: parsed.data.name, email: parsed.data.email, password: parsed.data.password }),
+      body: JSON.stringify({ name: parsed.data.name, email, password: parsed.data.password }),
     });
   } catch {
     return { error: "The account service is unavailable. Please try again." };
@@ -42,7 +43,7 @@ export default async function signupAction(_previous: SignupState, formData: For
   const loginResponse = await fetch(`${apiBase}/api/v1/auth/tokens`, {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ email: parsed.data.email, password: parsed.data.password }),
+    body: JSON.stringify({ email, password: parsed.data.password }),
   });
   if (!loginResponse.ok) return { error: "Account created. Please sign in to continue." };
 
